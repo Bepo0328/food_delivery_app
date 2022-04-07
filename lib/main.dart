@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/home/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,11 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Scaffold(
-        body: Center(
-          child: Text('Main Screen'),
-        ),
-      ),
+      home: const MainFoodPage(),
     );
   }
 }
