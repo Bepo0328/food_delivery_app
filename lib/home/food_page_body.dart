@@ -49,14 +49,14 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            margin: const EdgeInsets.all(30),
+            margin: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
             height: 120,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               color: Colors.white,
             ),
             child: Container(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -82,7 +82,23 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   ),
                   const SizedBox(height: 20),
                   Row(
-                    children: [],
+                    children: const [
+                      IconAndText(
+                        icon: Icons.circle_sharp,
+                        text: 'Normal',
+                        iconColor: AppColors.iconColor1,
+                      ),
+                      IconAndText(
+                        icon: Icons.location_on,
+                        text: '1.7km',
+                        iconColor: AppColors.mainColor,
+                      ),
+                      IconAndText(
+                        icon: Icons.access_time_rounded,
+                        text: '32min',
+                        iconColor: AppColors.iconColor2,
+                      ),
+                    ],
                   ),
                 ],
               ),
