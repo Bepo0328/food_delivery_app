@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/utils/colors.dart';
+import 'package:food_delivery_app/utils/utils.dart';
 
 class SmailText extends StatelessWidget {
   final Color? color;

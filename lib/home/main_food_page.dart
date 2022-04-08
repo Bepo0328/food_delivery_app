@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/home/home.dart';
-import 'package:food_delivery_app/utils/colors.dart';
+import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
 
 class MainFoodPage extends StatefulWidget {
@@ -17,6 +17,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
       body: SafeArea(
         child: Column(
           children: [
+            // Header
             SizedBox(
               child: Container(
                 margin: const EdgeInsets.only(top: 20, bottom: 5),
@@ -59,6 +60,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                 ),
               ),
             ),
+            // Body
             const FoodPageBody(),
           ],
         ),
