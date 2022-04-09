@@ -43,7 +43,7 @@ class _ExpandableTextState extends State<ExpandableText> {
               text: firstHalf,
               color: AppColors.paraColor,
               size: Dimenstions.font14,
-              height: 1.6,
+              height: 1.8,
             )
           : Column(
               children: [
@@ -53,7 +53,7 @@ class _ExpandableTextState extends State<ExpandableText> {
                       : (firstHalf + secondHalf),
                   color: AppColors.paraColor,
                   size: Dimenstions.font14,
-                  height: 1.6,
+                  height: 1.8,
                 ),
                 InkWell(
                   onTap: () {
