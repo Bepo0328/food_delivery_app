@@ -281,64 +281,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   left: Dimenstions.width15,
                   right: Dimenstions.width15,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const BigText(text: 'Chinese Side'),
-                    SizedBox(
-                      height: Dimenstions.height10,
-                    ),
-
-                    // comments setcion
-                    Row(
-                      children: [
-                        Wrap(
-                          children: List.generate(
-                            5,
-                            (index) => Icon(
-                              Icons.star,
-                              color: AppColors.mainColor,
-                              size: Dimenstions.iconSize15,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: Dimenstions.width10,
-                        ),
-                        const SmailText(text: '4.5'),
-                        SizedBox(
-                          width: Dimenstions.width10,
-                        ),
-                        const SmailText(text: '1287 comments'),
-                      ],
-                    ),
-                    SizedBox(
-                      height: Dimenstions.height20,
-                    ),
-
-                    // time and distance
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        IconAndText(
-                          icon: Icons.circle_sharp,
-                          text: 'Normal',
-                          iconColor: AppColors.iconColor1,
-                        ),
-                        IconAndText(
-                          icon: Icons.location_on,
-                          text: '1.7km',
-                          iconColor: AppColors.mainColor,
-                        ),
-                        IconAndText(
-                          icon: Icons.access_time_rounded,
-                          text: '32min',
-                          iconColor: AppColors.iconColor2,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                child: const AppColumn(text: 'Chinese Side'),
               ),
             ),
           ),

@@ -38,6 +38,34 @@ class PopularFoodDetail extends StatelessWidget {
               ],
             ),
           ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            top: Dimenstions.popularFoodImgSize - Dimenstions.height20,
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: Dimenstions.height20,
+                horizontal: Dimenstions.width20,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(
+                    Dimenstions.radius20,
+                  ),
+                  topRight: Radius.circular(
+                    Dimenstions.radius20,
+                  ),
+                ),
+                color: Colors.white,
+              ),
+              child: Column(
+                children: const [
+                  AppColumn(text: 'Chinese Side'),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
