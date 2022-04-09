@@ -11,6 +11,7 @@ class PopularFoodDetail extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
+          // background image
           Positioned(
             left: 0,
             right: 0,
@@ -27,6 +28,8 @@ class PopularFoodDetail extends StatelessWidget {
               ),
             ),
           ),
+
+          // icon widget
           Positioned(
             top: Dimenstions.height45,
             left: Dimenstions.width20,
@@ -34,11 +37,13 @@ class PopularFoodDetail extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
-                AppIcon(icon: Icons.arrow_back_ios),
+                AppIcon(icon: Icons.arrow_back_ios_new),
                 AppIcon(icon: Icons.shopping_cart_outlined),
               ],
             ),
           ),
+
+          // introduction of food
           Positioned(
             left: 0,
             right: 0,
@@ -68,6 +73,18 @@ class PopularFoodDetail extends StatelessWidget {
                     height: Dimenstions.height20,
                   ),
                   const BigText(text: 'Introduce'),
+                  SizedBox(
+                    height: Dimenstions.height20,
+                  ),
+                  // expandable text widget
+                  const Expanded(
+                    child: SingleChildScrollView(
+                      child: ExpandableText(
+                        text:
+                            'Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice.',
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
