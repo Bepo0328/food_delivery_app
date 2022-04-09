@@ -16,6 +16,12 @@
             "deviceId": "emulator-5554",
         },
         {
+            "name": "Android - Pixel API 30",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "emulator-5556",
+        },
+        {
             "name": "Android - 7.6 Fold in with outer display API 30",
             "request": "launch",
             "type": "dart",
@@ -37,7 +43,7 @@
     "compounds": [
         {
             "name": "All Devices",
-            "configurations": ["Current Device", "Android - Pixel 4 API 30", "Web", "Window App"],
-        }
+            "configurations": ["Current Device", "Android - Pixel API 30", "Android - Pixel 4 API 30", "Web", "Window App"],
+        },
     ],
 }

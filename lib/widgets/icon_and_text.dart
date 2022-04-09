@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
 
 class IconAndText extends StatelessWidget {
@@ -20,8 +21,9 @@ class IconAndText extends StatelessWidget {
         Icon(
           icon,
           color: iconColor,
+          size: Dimenstions.iconSize24,
         ),
-        const SizedBox(width: 5),
+        SizedBox(width: Dimenstions.width05),
         SmailText(text: text),
       ],
     );

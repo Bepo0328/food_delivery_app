@@ -36,6 +36,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // slidere setcion
         SizedBox(
           height: Dimenstions.pageView,
           child: PageView.builder(
@@ -46,6 +47,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             },
           ),
         ),
+        // dots
         DotsIndicator(
           dotsCount: 5,
           position: _currPageValue,
@@ -94,7 +96,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             margin: EdgeInsets.symmetric(horizontal: Dimenstions.width10),
             height: Dimenstions.pageViewContainer,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(Dimenstions.radius30),
               color: index.isEven
                   ? const Color(0xFF69c5df)
                   : const Color(0xFF9294cc),
@@ -116,7 +118,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               ),
               height: Dimenstions.pageViewTextContainer,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(Dimenstions.radius20),
                 color: Colors.white,
                 boxShadow: const [
                   BoxShadow(
@@ -151,10 +153,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                         Wrap(
                           children: List.generate(
                             5,
-                            (index) => const Icon(
+                            (index) => Icon(
                               Icons.star,
                               color: AppColors.mainColor,
-                              size: 15,
+                              size: Dimenstions.iconSize15,
                             ),
                           ),
                         ),

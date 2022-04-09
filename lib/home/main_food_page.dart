@@ -20,8 +20,13 @@ class _MainFoodPageState extends State<MainFoodPage> {
             // Header
             SizedBox(
               child: Container(
-                margin: const EdgeInsets.only(top: 20, bottom: 5),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                margin: EdgeInsets.only(
+                  top: Dimenstions.height20,
+                  bottom: Dimenstions.height05,
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: Dimenstions.width20,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -44,15 +49,18 @@ class _MainFoodPageState extends State<MainFoodPage> {
                     ),
                     Center(
                       child: Container(
-                        width: 45,
-                        height: 45,
+                        width: Dimenstions.width45,
+                        height: Dimenstions.height45,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(
+                            Dimenstions.radius15,
+                          ),
                           color: AppColors.mainColor,
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.search,
                           color: Colors.white,
+                          size: Dimenstions.iconSize24,
                         ),
                       ),
                     ),
