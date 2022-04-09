@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/utils/utils.dart';
+import 'package:food_delivery_app/widgets/widgets.dart';
 
 class PopularFoodDetail extends StatelessWidget {
   const PopularFoodDetail({Key? key}) : super(key: key);
@@ -26,9 +27,16 @@ class PopularFoodDetail extends StatelessWidget {
             ),
           ),
           Positioned(
+            top: Dimenstions.height45,
             left: Dimenstions.width20,
             right: Dimenstions.width20,
-            child: Row(),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                AppIcon(icon: Icons.arrow_back_ios),
+                AppIcon(icon: Icons.shopping_cart_outlined),
+              ],
+            ),
           ),
         ],
       ),
