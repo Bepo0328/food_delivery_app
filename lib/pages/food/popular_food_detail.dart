@@ -8,6 +8,7 @@ class PopularFoodDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Positioned(
@@ -60,13 +61,90 @@ class PopularFoodDetail extends StatelessWidget {
                 color: Colors.white,
               ),
               child: Column(
-                children: const [
-                  AppColumn(text: 'Chinese Side'),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const AppColumn(text: 'Chinese Side'),
+                  SizedBox(
+                    height: Dimenstions.height20,
+                  ),
+                  const BigText(text: 'Introduce'),
                 ],
               ),
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: Dimenstions.height30,
+          horizontal: Dimenstions.width20,
+        ),
+        height: Dimenstions.bottomHeightBar,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(
+              Dimenstions.radius20 * 2,
+            ),
+            topRight: Radius.circular(
+              Dimenstions.radius20 * 2,
+            ),
+          ),
+          color: AppColors.buttonBackgroundColor,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(
+                vertical: Dimenstions.height20,
+                horizontal: Dimenstions.width20,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  Dimenstions.radius20,
+                ),
+                color: Colors.white,
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.remove,
+                    color: AppColors.signColor,
+                  ),
+                  SizedBox(
+                    width: Dimenstions.width05,
+                  ),
+                  const BigText(
+                    text: '0',
+                  ),
+                  SizedBox(
+                    width: Dimenstions.width05,
+                  ),
+                  const Icon(
+                    Icons.add,
+                    color: AppColors.signColor,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(
+                vertical: Dimenstions.height20,
+                horizontal: Dimenstions.width20,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  Dimenstions.radius20,
+                ),
+                color: AppColors.mainColor,
+              ),
+              child: const BigText(
+                text: '\$10 | Add to cart',
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
