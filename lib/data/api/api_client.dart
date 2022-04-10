@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:food_delivery_app/utils/utils.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class ApiClient extends GetConnect implements GetxService {
   late String token;
   final String appBaseUrl;
 
+  // ignore: unused_field
   late Map<String, String> _mainHeaders;
 
   ApiClient({
@@ -12,22 +15,23 @@ class ApiClient extends GetConnect implements GetxService {
   }) {
     baseUrl = appBaseUrl;
     timeout = const Duration(seconds: 30);
-    token = '';
+    token = AppConstants.TOKEN;
     _mainHeaders = {
       'Content-type': 'application/json; charset = UTF-8',
       'Authorization': 'Bearer $token',
     };
   }
 
-  Future<Response> getData(String uri) async {
+  Future<http.Response> getData(String uri) async {
     try {
-      Response response = await get(uri);
+      final url = Uri.parse('$baseUrl$uri');
+      http.Response response = await http.get(url);
       return response;
     } catch (e) {
       debugPrint(e.toString());
-      return Response(
-        statusCode: 1,
-        statusText: e.toString(),
+      return http.Response(
+        e.toString(),
+        1,
       );
     }
   }
