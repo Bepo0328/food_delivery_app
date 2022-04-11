@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controllers/popular_product_controller.dart';
 import 'package:food_delivery_app/controllers/recommended_product_controller.dart';
 import 'package:food_delivery_app/models/products_model.dart';
-import 'package:food_delivery_app/pages/food/popular_food_detail.dart';
+import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
 import 'package:get/get.dart';
@@ -49,7 +49,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     height: Dimenstions.pageView,
                     child: GestureDetector(
                       onTap: () {
-                        Get.to(() => const PopularFoodDetail());
+                        Get.toNamed(RouteHelper.getPopularFood());
                       },
                       child: PageView.builder(
                         controller: pageController,
@@ -192,8 +192,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                       SizedBox(
                                         height: Dimenstions.height10,
                                       ),
-                                      SmailText(
-                                        text: productModel.description!,
+                                      const SmailText(
+                                        text: 'With chinese characteristics',
                                       ),
                                       SizedBox(
                                         height: Dimenstions.height10,

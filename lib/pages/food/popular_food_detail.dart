@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/pages/home/main_food_page.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
 import 'package:get/get.dart';
@@ -41,7 +40,7 @@ class PopularFoodDetail extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => const MainFoodPage());
+                    Get.back();
                   },
                   child: const AppIcon(icon: Icons.arrow_back_ios_new),
                 ),
