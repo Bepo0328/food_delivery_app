@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/controllers/popular_product_controller.dart';
-import 'package:food_delivery_app/controllers/recommended_product_controller.dart';
+import 'package:food_delivery_app/controllers/controllers.dart';
 import 'package:food_delivery_app/pages/pages.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:get/get.dart';

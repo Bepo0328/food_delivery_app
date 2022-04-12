@@ -1,25 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/controllers/controllers.dart';
+import 'package:food_delivery_app/models/models.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
-  const RecommendedFoodDetail({Key? key}) : super(key: key);
+  final int pageId;
+
+  const RecommendedFoodDetail({
+    Key? key,
+    required this.pageId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ProductModel recommendedProduct =
+        Get.find<RecommendedProductController>().recommendedProductList[pageId];
+    String price = NumberFormat.simpleCurrency(decimalDigits: 0)
+        .format(recommendedProduct.price!);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 70,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                AppIcon(
-                  icon: Icons.clear,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: const AppIcon(
+                    icon: Icons.clear,
+                  ),
                 ),
-                AppIcon(
+                const AppIcon(
                   icon: Icons.shopping_cart_outlined,
                 ),
               ],
@@ -45,7 +65,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                 ),
                 child: Center(
                   child: BigText(
-                    text: 'Chinese Side',
+                    text: recommendedProduct.name!,
                     size: Dimenstions.font24,
                   ),
                 ),
@@ -55,8 +75,10 @@ class RecommendedFoodDetail extends StatelessWidget {
             backgroundColor: AppColors.yellowColor,
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                'assets/image/food0.png',
+              background: Image.network(
+                AppConstants.BASE_URL +
+                    AppConstants.UPLOAD_URL +
+                    recommendedProduct.img!,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),
@@ -69,9 +91,8 @@ class RecommendedFoodDetail extends StatelessWidget {
                   margin: EdgeInsets.symmetric(
                     horizontal: Dimenstions.width20,
                   ),
-                  child: const ExpandableText(
-                    text:
-                        'Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice. Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice.',
+                  child: ExpandableText(
+                    text: recommendedProduct.description!,
                   ),
                 ),
               ],
@@ -97,7 +118,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                   iconSize: Dimenstions.iconSize24,
                 ),
                 BigText(
-                  text: '\$12.88 X 0',
+                  text: '$price X 0',
                   color: AppColors.mainBlackColor,
                   size: Dimenstions.font24,
                 ),
@@ -157,8 +178,8 @@ class RecommendedFoodDetail extends StatelessWidget {
                     ),
                     color: AppColors.mainColor,
                   ),
-                  child: const BigText(
-                    text: '\$10 | Add to cart',
+                  child: BigText(
+                    text: '$price | Add to cart',
                     color: Colors.white,
                   ),
                 ),

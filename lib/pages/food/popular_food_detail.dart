@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/controllers/controllers.dart';
+import 'package:food_delivery_app/models/models.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({Key? key}) : super(key: key);
+  final int pageId;
+
+  const PopularFoodDetail({
+    Key? key,
+    required this.pageId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ProductModel popularProduct =
+        Get.find<PopularProductController>().popularProductList[pageId];
+    String price = NumberFormat.simpleCurrency(decimalDigits: 0)
+        .format(popularProduct.price!);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -19,10 +32,12 @@ class PopularFoodDetail extends StatelessWidget {
             child: Container(
               width: double.maxFinite,
               height: Dimenstions.popularFoodImgSize,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                    'assets/image/food0.png',
+                  image: NetworkImage(
+                    AppConstants.BASE_URL +
+                        AppConstants.UPLOAD_URL +
+                        popularProduct.img!,
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -74,7 +89,7 @@ class PopularFoodDetail extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const AppColumn(text: 'Chinese Side'),
+                  AppColumn(text: popularProduct.name!),
                   SizedBox(
                     height: Dimenstions.height20,
                   ),
@@ -83,11 +98,10 @@ class PopularFoodDetail extends StatelessWidget {
                     height: Dimenstions.height20,
                   ),
                   // expandable text widget
-                  const Expanded(
+                  Expanded(
                     child: SingleChildScrollView(
                       child: ExpandableText(
-                        text:
-                            'Chicken marinated in a spiced yoghuty is placed in a large pot, then layered with fried onions (cheeky easy sub below!), fresh coriander/cilantro, then par boiled lightly spiced rice.',
+                        text: popularProduct.description!,
                       ),
                     ),
                   ),
@@ -161,8 +175,8 @@ class PopularFoodDetail extends StatelessWidget {
                 ),
                 color: AppColors.mainColor,
               ),
-              child: const BigText(
-                text: '\$10 | Add to cart',
+              child: BigText(
+                text: '$price | Add to cart',
                 color: Colors.white,
               ),
             ),
