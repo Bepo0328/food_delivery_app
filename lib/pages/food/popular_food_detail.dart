@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controllers/controllers.dart';
 import 'package:food_delivery_app/models/models.dart';
+import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,6 @@ class PopularFoodDetail extends StatelessWidget {
         Get.find<PopularProductController>().popularProductList[pageId];
     String price = NumberFormat.simpleCurrency(decimalDigits: 0)
         .format(popularProduct.price!);
-    Get.find<PopularProductController>().initProduct();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -188,9 +188,14 @@ class PopularFoodDetail extends StatelessWidget {
                     ),
                     color: AppColors.mainColor,
                   ),
-                  child: BigText(
-                    text: '$price | Add to cart',
-                    color: Colors.white,
+                  child: GestureDetector(
+                    onTap: () {
+                      popularProductController.addItem(popularProduct);
+                    },
+                    child: BigText(
+                      text: '$price | Add to cart',
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
