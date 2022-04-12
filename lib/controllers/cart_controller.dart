@@ -39,4 +39,24 @@ class CartController extends GetxController {
       });
     }
   }
+
+  bool existInCart(ProductModel product) {
+    if (_items.containsKey(product.id!)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  int getQuantity(ProductModel product) {
+    var quantity = 0;
+    if (_items.containsKey(product.id!)) {
+      _items.forEach((key, value) {
+        if (key == product.id!) {
+          quantity = value.quantity!;
+        }
+      });
+    }
+    return quantity;
+  }
 }

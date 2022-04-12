@@ -43,12 +43,13 @@ class PopularProductController extends GetxController {
       _quantity = checkQuantity(_quantity + 1);
     } else {
       _quantity = checkQuantity(_quantity - 1);
+      debugPrint('decrement $_quantity');
     }
     update();
   }
 
   int checkQuantity(int quantity) {
-    if (quantity < 0) {
+    if ((_inCartItems + quantity) < 0) {
       Get.snackbar(
         'Item count',
         'You can\'t reduce more!',
@@ -56,7 +57,7 @@ class PopularProductController extends GetxController {
         colorText: Colors.white,
       );
       return 0;
-    } else if (quantity > 20) {
+    } else if ((_inCartItems + quantity) > 20) {
       Get.snackbar(
         'Item count',
         'You can\'t add more!',
@@ -69,10 +70,17 @@ class PopularProductController extends GetxController {
     }
   }
 
-  void initProduct(CartController cart) {
+  void initProduct(ProductModel product, CartController cart) {
     _quantity = 0;
     _inCartItems = 0;
     _cart = cart;
+    var exist = false;
+    exist = _cart.existInCart(product);
+    debugPrint('exist or not $exist');
+    if (exist) {
+      _inCartItems = _cart.getQuantity(product);
+    }
+    debugPrint('the quantity in the cart is $_inCartItems');
   }
 
   void addItem(ProductModel product) {
