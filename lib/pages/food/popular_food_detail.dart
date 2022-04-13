@@ -81,8 +81,8 @@ class PopularFoodDetail extends StatelessWidget {
                             : Container(),
                         controller.totalItems >= 1
                             ? Positioned(
-                                right: 3,
-                                top: 3,
+                                right: 3.5,
+                                top: 3.5,
                                 child: BigText(
                                   text: '${controller.totalItems}',
                                   size: 12,
@@ -146,7 +146,7 @@ class PopularFoodDetail extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: GetBuilder<PopularProductController>(
-        builder: (popularProductController) {
+        builder: (controller) {
           return Container(
             padding: EdgeInsets.symmetric(
               vertical: Dimenstions.height30,
@@ -182,7 +182,7 @@ class PopularFoodDetail extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          popularProductController.setQuantity(false);
+                          controller.setQuantity(false);
                         },
                         child: const Icon(
                           Icons.remove,
@@ -193,14 +193,14 @@ class PopularFoodDetail extends StatelessWidget {
                         width: Dimenstions.width05,
                       ),
                       BigText(
-                        text: '${popularProductController.inCartItems}',
+                        text: '${controller.inCartItems}',
                       ),
                       SizedBox(
                         width: Dimenstions.width05,
                       ),
                       GestureDetector(
                         onTap: () {
-                          popularProductController.setQuantity(true);
+                          controller.setQuantity(true);
                         },
                         child: const Icon(
                           Icons.add,
@@ -210,21 +210,21 @@ class PopularFoodDetail extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: Dimenstions.height20,
-                    horizontal: Dimenstions.width20,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      Dimenstions.radius20,
+                GestureDetector(
+                  onTap: () {
+                    controller.addItem(popularProduct);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: Dimenstions.height20,
+                      horizontal: Dimenstions.width20,
                     ),
-                    color: AppColors.mainColor,
-                  ),
-                  child: GestureDetector(
-                    onTap: () {
-                      popularProductController.addItem(popularProduct);
-                    },
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        Dimenstions.radius20,
+                      ),
+                      color: AppColors.mainColor,
+                    ),
                     child: BigText(
                       text: '$price | Add to cart',
                       color: Colors.white,

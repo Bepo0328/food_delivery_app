@@ -21,6 +21,8 @@ class RecommendedFoodDetail extends StatelessWidget {
         Get.find<RecommendedProductController>().recommendedProductList[pageId];
     String price = NumberFormat.simpleCurrency(decimalDigits: 0)
         .format(recommendedProduct.price!);
+    Get.find<PopularProductController>()
+        .initProduct(recommendedProduct, Get.find<CartController>());
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -40,8 +42,37 @@ class RecommendedFoodDetail extends StatelessWidget {
                     icon: Icons.clear,
                   ),
                 ),
-                const AppIcon(
-                  icon: Icons.shopping_cart_outlined,
+                GetBuilder<PopularProductController>(
+                  builder: (controller) {
+                    return Stack(
+                      children: [
+                        const AppIcon(icon: Icons.shopping_cart_outlined),
+                        controller.totalItems >= 1
+                            ? const Positioned(
+                                right: 0,
+                                top: 0,
+                                child: AppIcon(
+                                  icon: Icons.circle,
+                                  size: 20,
+                                  iconColor: Colors.transparent,
+                                  backgroundColor: AppColors.mainColor,
+                                ),
+                              )
+                            : Container(),
+                        controller.totalItems >= 1
+                            ? Positioned(
+                                right: 3.5,
+                                top: 3.5,
+                                child: BigText(
+                                  text: '${controller.totalItems}',
+                                  size: 12,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Container(),
+                      ],
+                    );
+                  },
                 ),
               ],
             ),
@@ -101,93 +132,112 @@ class RecommendedFoodDetail extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(
-              vertical: Dimenstions.height10,
-              horizontal: Dimenstions.width20 * 2.5,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AppIcon(
-                  icon: Icons.remove,
-                  backgroundColor: AppColors.mainColor,
-                  iconColor: Colors.white,
-                  iconSize: Dimenstions.iconSize24,
+      bottomNavigationBar: GetBuilder<PopularProductController>(
+        builder: (controller) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: Dimenstions.height10,
+                  horizontal: Dimenstions.width20 * 2.5,
                 ),
-                BigText(
-                  text: '$price X 0',
-                  color: AppColors.mainBlackColor,
-                  size: Dimenstions.font24,
-                ),
-                AppIcon(
-                  icon: Icons.add,
-                  backgroundColor: AppColors.mainColor,
-                  iconColor: Colors.white,
-                  iconSize: Dimenstions.iconSize24,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(
-              vertical: Dimenstions.height30,
-              horizontal: Dimenstions.width20,
-            ),
-            height: Dimenstions.bottomHeightBar,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(
-                  Dimenstions.radius20 * 2,
-                ),
-                topRight: Radius.circular(
-                  Dimenstions.radius20 * 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        controller.setQuantity(false);
+                      },
+                      child: AppIcon(
+                        icon: Icons.remove,
+                        backgroundColor: AppColors.mainColor,
+                        iconColor: Colors.white,
+                        iconSize: Dimenstions.iconSize24,
+                      ),
+                    ),
+                    BigText(
+                      text: '$price X ${controller.inCartItems}',
+                      color: AppColors.mainBlackColor,
+                      size: Dimenstions.font24,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        controller.setQuantity(true);
+                      },
+                      child: AppIcon(
+                        icon: Icons.add,
+                        backgroundColor: AppColors.mainColor,
+                        iconColor: Colors.white,
+                        iconSize: Dimenstions.iconSize24,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              color: AppColors.buttonBackgroundColor,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: Dimenstions.height20,
-                    horizontal: Dimenstions.width20,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      Dimenstions.radius20,
-                    ),
-                    color: Colors.white,
-                  ),
-                  child: const Icon(
-                    Icons.favorite,
-                    color: AppColors.mainColor,
-                  ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: Dimenstions.height30,
+                  horizontal: Dimenstions.width20,
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: Dimenstions.height20,
-                    horizontal: Dimenstions.width20,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      Dimenstions.radius20,
+                height: Dimenstions.bottomHeightBar,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(
+                      Dimenstions.radius20 * 2,
                     ),
-                    color: AppColors.mainColor,
+                    topRight: Radius.circular(
+                      Dimenstions.radius20 * 2,
+                    ),
                   ),
-                  child: BigText(
-                    text: '$price | Add to cart',
-                    color: Colors.white,
-                  ),
+                  color: AppColors.buttonBackgroundColor,
                 ),
-              ],
-            ),
-          ),
-        ],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: Dimenstions.height20,
+                        horizontal: Dimenstions.width20,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          Dimenstions.radius20,
+                        ),
+                        color: Colors.white,
+                      ),
+                      child: const Icon(
+                        Icons.favorite,
+                        color: AppColors.mainColor,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        controller.addItem(recommendedProduct);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: Dimenstions.height20,
+                          horizontal: Dimenstions.width20,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            Dimenstions.radius20,
+                          ),
+                          color: AppColors.mainColor,
+                        ),
+                        child: BigText(
+                          text: '$price | Add to cart',
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
