@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:food_delivery_app/data/repository/repository.dart';
 import 'package:food_delivery_app/models/models.dart';
+import 'package:food_delivery_app/utils/utils.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -13,8 +15,11 @@ class CartController extends GetxController {
   Map<int, CartModel> get items => _items;
 
   void addItem(ProductModel product, int quantity) {
+    var totalQuantity = 0;
     if (_items.containsKey(product.id!)) {
       _items.update(product.id!, (value) {
+        totalQuantity = value.quantity! + quantity;
+
         return CartModel(
           id: value.id,
           name: value.name,
@@ -25,18 +30,31 @@ class CartController extends GetxController {
           time: DateTime.now().toString(),
         );
       });
+
+      if (totalQuantity <= 0) {
+        _items.remove(product.id);
+      }
     } else {
-      _items.putIfAbsent(product.id!, () {
-        return CartModel(
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          img: product.img,
-          quantity: quantity,
-          isExit: true,
-          time: DateTime.now().toString(),
+      if (quantity > 0) {
+        _items.putIfAbsent(product.id!, () {
+          return CartModel(
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            img: product.img,
+            quantity: quantity,
+            isExit: true,
+            time: DateTime.now().toString(),
+          );
+        });
+      } else {
+        Get.snackbar(
+          'Item count',
+          'You should at least add an item in the cart!',
+          backgroundColor: AppColors.mainColor,
+          colorText: Colors.white,
         );
-      });
+      }
     }
   }
 

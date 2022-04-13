@@ -43,8 +43,8 @@ class PopularProductController extends GetxController {
       _quantity = checkQuantity(_quantity + 1);
     } else {
       _quantity = checkQuantity(_quantity - 1);
-      debugPrint('decrement $_quantity');
     }
+    debugPrint('decrement $_quantity');
     update();
   }
 
@@ -84,19 +84,13 @@ class PopularProductController extends GetxController {
   }
 
   void addItem(ProductModel product) {
-    if (_quantity > 0) {
-      _cart.addItem(product, _quantity);
-      _quantity = 0;
-      _cart.items.forEach((key, value) {
-        debugPrint('The id is ${value.id} The quantity is ${value.quantity}');
-      });
-    } else {
-      Get.snackbar(
-        'Item count',
-        'You should at least add an item in the cart!',
-        backgroundColor: AppColors.mainColor,
-        colorText: Colors.white,
-      );
-    }
+    _cart.addItem(product, _quantity);
+
+    _quantity = 0;
+    _inCartItems = _cart.getQuantity(product);
+
+    _cart.items.forEach((key, value) {
+      debugPrint('The id is ${value.id} The quantity is ${value.quantity}');
+    });
   }
 }
