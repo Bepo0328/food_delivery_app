@@ -10,6 +10,7 @@ class CartPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
+          // header
           Positioned(
             top: Dimenstions.height20 * 3,
             left: Dimenstions.width20,
