@@ -69,8 +69,8 @@ class PopularFoodDetail extends StatelessWidget {
                         const AppIcon(icon: Icons.shopping_cart_outlined),
                         controller.totalItems >= 1
                             ? const Positioned(
-                                right: 0,
                                 top: 0,
+                                right: 0,
                                 child: AppIcon(
                                   icon: Icons.circle,
                                   size: 20,
@@ -81,8 +81,8 @@ class PopularFoodDetail extends StatelessWidget {
                             : Container(),
                         controller.totalItems >= 1
                             ? Positioned(
-                                right: 3.5,
-                                top: 3.5,
+                                top: Dimenstions.height03_5,
+                                right: Dimenstions.width03_5,
                                 child: BigText(
                                   text: '${controller.totalItems}',
                                   size: 12,

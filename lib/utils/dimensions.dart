@@ -11,6 +11,7 @@ class Dimenstions {
   static double pageViewTextContainer = screenHeight / 6.50;
 
   // dynamic height padding and margin
+  static double height03_5 = screenHeight / 223.16;
   static double height05 = screenHeight / 156.21;
   static double height10 = screenHeight / 78.10;
   static double height15 = screenHeight / 52.07;
@@ -22,6 +23,7 @@ class Dimenstions {
   static double height45 = screenHeight / 17.35;
 
   // dynamic width padding and margin
+  static double width03_5 = screenHeight / 223.16;
   static double width05 = screenHeight / 156.21;
   static double width10 = screenHeight / 78.10;
   static double width15 = screenHeight / 52.07;
