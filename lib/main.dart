@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controllers/controllers.dart';
 import 'package:food_delivery_app/pages/pages.dart';
-// import 'package:food_delivery_app/routes/route_helper.dart';
+import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:get/get.dart';
 import 'helper/dependencies.dart' as dep;
 
@@ -21,12 +21,12 @@ class MyApp extends StatelessWidget {
     Get.find<PopularProductController>().getPopularProductList();
     Get.find<RecommendedProductController>().getRecommendedProductList();
 
-    return const GetMaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Food Delivery App',
-      home: CartPage(),
-      // initialRoute: RouteHelper.initial,
-      // getPages: RouteHelper.routes,
+      home: const MainFoodPage(),
+      initialRoute: RouteHelper.initial,
+      getPages: RouteHelper.routes,
     );
   }
 }
