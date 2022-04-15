@@ -204,6 +204,82 @@ class CartPage extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: GetBuilder<CartController>(
+        builder: (cartController) {
+          String totalAmount = NumberFormat.simpleCurrency(decimalDigits: 0)
+              .format(cartController.totalAmount);
+
+          return Container(
+            padding: EdgeInsets.symmetric(
+              vertical: Dimenstions.height30,
+              horizontal: Dimenstions.width20,
+            ),
+            height: Dimenstions.bottomHeightBar,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(
+                  Dimenstions.radius20 * 2,
+                ),
+                topRight: Radius.circular(
+                  Dimenstions.radius20 * 2,
+                ),
+              ),
+              color: AppColors.buttonBackgroundColor,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: Dimenstions.height20,
+                    horizontal: Dimenstions.width20,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      Dimenstions.radius20,
+                    ),
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: Dimenstions.width05,
+                      ),
+                      BigText(
+                        text: totalAmount,
+                      ),
+                      SizedBox(
+                        width: Dimenstions.width05,
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    // controller.addItem(popularProduct);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: Dimenstions.height20,
+                      horizontal: Dimenstions.width20,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        Dimenstions.radius20,
+                      ),
+                      color: AppColors.mainColor,
+                    ),
+                    child: const BigText(
+                      text: 'Check out',
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
