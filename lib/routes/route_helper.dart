@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:food_delivery_app/pages/pages.dart';
 import 'package:get/get.dart';
 
