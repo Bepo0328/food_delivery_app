@@ -9,10 +9,12 @@ import 'package:intl/intl.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
   final int pageId;
+  final String page;
 
   const RecommendedFoodDetail({
     Key? key,
     required this.pageId,
+    required this.page,
   }) : super(key: key);
 
   @override
@@ -36,7 +38,11 @@ class RecommendedFoodDetail extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed(RouteHelper.getInitial());
+                    if (page == 'cartpage') {
+                      Get.toNamed(RouteHelper.getCartPage());
+                    } else {
+                      Get.toNamed(RouteHelper.getInitial());
+                    }
                   },
                   child: const AppIcon(
                     icon: Icons.clear,

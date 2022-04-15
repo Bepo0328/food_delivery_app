@@ -80,20 +80,39 @@ class CartPage extends StatelessWidget {
                         width: double.maxFinite,
                         child: Row(
                           children: [
-                            Container(
-                              height: Dimenstions.height20 * 5,
-                              width: Dimenstions.width20 * 5,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(Dimenstions.radius20),
-                                color: Colors.white,
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    AppConstants.BASE_URL +
-                                        AppConstants.UPLOAD_URL +
-                                        cartItem.img!,
+                            GestureDetector(
+                              onTap: () {
+                                int popularIndex =
+                                    Get.find<PopularProductController>()
+                                        .popularProductList
+                                        .indexOf(cartItem.product!);
+                                if (popularIndex >= 0) {
+                                  Get.toNamed(RouteHelper.getPopularFood(
+                                      popularIndex, 'cartpage'));
+                                } else {
+                                  int recommededIndex =
+                                      Get.find<RecommendedProductController>()
+                                          .recommendedProductList
+                                          .indexOf(cartItem.product!);
+                                  Get.toNamed(RouteHelper.getRecommendedFood(
+                                      recommededIndex, 'cartpage'));
+                                }
+                              },
+                              child: Container(
+                                height: Dimenstions.height20 * 5,
+                                width: Dimenstions.width20 * 5,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                      Dimenstions.radius20),
+                                  color: Colors.white,
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      AppConstants.BASE_URL +
+                                          AppConstants.UPLOAD_URL +
+                                          cartItem.img!,
+                                    ),
+                                    fit: BoxFit.cover,
                                   ),
-                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),

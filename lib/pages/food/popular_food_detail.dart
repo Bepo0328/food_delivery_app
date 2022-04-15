@@ -9,10 +9,12 @@ import 'package:intl/intl.dart';
 
 class PopularFoodDetail extends StatelessWidget {
   final int pageId;
+  final String page;
 
   const PopularFoodDetail({
     Key? key,
     required this.pageId,
+    required this.page,
   }) : super(key: key);
 
   @override
@@ -58,7 +60,11 @@ class PopularFoodDetail extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed(RouteHelper.getInitial());
+                    if (page == 'cartpage') {
+                      Get.toNamed(RouteHelper.getCartPage());
+                    } else {
+                      Get.toNamed(RouteHelper.getInitial());
+                    }
                   },
                   child: const AppIcon(icon: Icons.arrow_back_ios_new),
                 ),
