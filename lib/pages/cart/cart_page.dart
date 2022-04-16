@@ -32,7 +32,7 @@ class CartPage extends StatelessWidget {
                 SizedBox(width: Dimenstions.width20 * 5),
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed(RouteHelper.getInitial());
+                    Get.offAllNamed(RouteHelper.getInitial());
                   },
                   child: AppIcon(
                     icon: Icons.home_outlined,

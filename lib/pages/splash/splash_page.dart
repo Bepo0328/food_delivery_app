@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controllers/controllers.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
+import 'package:food_delivery_app/utils/utils.dart';
 import 'package:get/get.dart';
 
 class SplashPage extends StatefulWidget {
@@ -56,12 +57,12 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
               scale: animation,
               child: Image.asset(
                 'assets/image/logo part 1.png',
-                width: 250,
+                width: Dimenstions.splashImg,
               ),
             ),
             Image.asset(
               'assets/image/logo part 2.png',
-              width: 250,
+              width: Dimenstions.splashImg,
             ),
           ],
         ),
