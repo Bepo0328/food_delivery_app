@@ -42,6 +42,7 @@ class CartModel {
       'quantity': this.quantity,
       'isExit': this.isExit,
       'time': this.time,
+      'product': this.product!.toJson(),
     };
   }
 }

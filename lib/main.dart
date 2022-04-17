@@ -19,7 +19,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<PopularProductController>(builder: (_) {
       return GetBuilder<RecommendedProductController>(builder: (_) {
-        return GetBuilder<CartController>(builder: (_) {
+        return GetBuilder<CartController>(builder: (controller) {
+          controller.getCartData();
+
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Food Delivery App',
