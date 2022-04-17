@@ -23,6 +23,22 @@ class CartRepo {
     }
 
     sharedPreferences.setStringList(AppConstants.CART_LIST, cart);
-    debugPrint('${sharedPreferences.getStringList(AppConstants.CART_LIST)}');
+    // debugPrint('${sharedPreferences.getStringList(AppConstants.CART_LIST)}');
+    getCartList();
+  }
+
+  List<CartModel> getCartList() {
+    List<String> carts = [];
+    if (sharedPreferences.containsKey(AppConstants.CART_LIST)) {
+      carts = sharedPreferences.getStringList(AppConstants.CART_LIST)!;
+      debugPrint('inside getCartList $carts');
+    }
+    List<CartModel> cartList = [];
+
+    for (var element in carts) {
+      CartModel.fromJson(jsonDecode(element));
+    }
+
+    return cartList;
   }
 }
