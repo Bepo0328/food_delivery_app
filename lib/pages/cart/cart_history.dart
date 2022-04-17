@@ -27,9 +27,8 @@ class CartHistory extends StatelessWidget {
       return cartItemsPerOrder.entries.map((e) => e.value).toList();
     }
 
-    List<int> orderTimes = cartOrderTimeToList();
-
-    var saveCounter = 0;
+    List<int> itemsPerOrder = cartOrderTimeToList();
+    var listCounter = 0;
 
     return Scaffold(
       body: Column(
@@ -52,6 +51,74 @@ class CartHistory extends StatelessWidget {
                   backgroundColor: AppColors.yellowColor,
                 ),
               ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                vertical: Dimenstions.height20,
+                horizontal: Dimenstions.width20,
+              ),
+              child: MediaQuery.removePadding(
+                removeTop: true,
+                context: context,
+                child: ListView.builder(
+                  itemCount: itemsPerOrder.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: Dimenstions.width10,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const BigText(
+                            text: '18/04/2022',
+                          ),
+                          SizedBox(
+                            height: Dimenstions.height10,
+                          ),
+                          Row(
+                            children: [
+                              Wrap(
+                                direction: Axis.horizontal,
+                                children: List.generate(itemsPerOrder[index],
+                                    (index2) {
+                                  if (listCounter < getCartHistoryList.length) {
+                                    listCounter++;
+                                  }
+
+                                  return Container(
+                                    margin: EdgeInsets.symmetric(
+                                      horizontal: Dimenstions.width05 / 2,
+                                    ),
+                                    height: Dimenstions.height20 * 4,
+                                    width: Dimenstions.width20 * 4,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                          Dimenstions.radius15 / 2),
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                          AppConstants.BASE_URL +
+                                              AppConstants.UPLOAD_URL +
+                                              getCartHistoryList[
+                                                      listCounter - 1]
+                                                  .img!,
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
           ),
         ],
