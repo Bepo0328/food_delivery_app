@@ -5,3 +5,4 @@ export 'food/recommended_food_detail.dart';
 export 'cart/cart_page.dart';
 export 'home/home_page.dart';
 export 'splash/splash_page.dart';
+export 'cart/cart_history.dart';

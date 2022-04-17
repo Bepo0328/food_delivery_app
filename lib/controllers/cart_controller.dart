@@ -116,7 +116,6 @@ class CartController extends GetxController {
 
   set setCart(List<CartModel> items) {
     storageItems = items;
-
     // debugPrint('Lenght of cart items ${storageItems.length}');
 
     for (int i = 0; i < storageItems.length; i++) {
@@ -132,5 +131,9 @@ class CartController extends GetxController {
   void clear() {
     _items = {};
     update();
+  }
+
+  List<CartModel> getCartHistoryList() {
+    return cartRepo.getCartHistoryList();
   }
 }
