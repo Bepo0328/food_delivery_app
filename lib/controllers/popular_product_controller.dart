@@ -44,7 +44,7 @@ class PopularProductController extends GetxController {
     } else {
       _quantity = checkQuantity(_quantity - 1);
     }
-    debugPrint('decrement $_quantity');
+    // debugPrint('decrement $_quantity');
     update();
   }
 
@@ -80,11 +80,11 @@ class PopularProductController extends GetxController {
     _cart = cart;
     var exist = false;
     exist = _cart.existInCart(product);
-    debugPrint('exist or not $exist');
+    // debugPrint('exist or not $exist');
     if (exist) {
       _inCartItems = _cart.getQuantity(product);
     }
-    debugPrint('the quantity in the cart is $_inCartItems');
+    // debugPrint('the quantity in the cart is $_inCartItems');
   }
 
   void addItem(ProductModel product) {
@@ -94,7 +94,7 @@ class PopularProductController extends GetxController {
     _inCartItems = _cart.getQuantity(product);
 
     _cart.items.forEach((key, value) {
-      debugPrint('The id is ${value.id} The quantity is ${value.quantity}');
+      // debugPrint('The id is ${value.id} The quantity is ${value.quantity}');
     });
 
     update();
