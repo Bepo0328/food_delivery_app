@@ -4,6 +4,7 @@ import 'package:food_delivery_app/models/models.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class CartHistory extends StatelessWidget {
   const CartHistory({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class CartHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<CartModel> getCartHistoryList =
-        Get.find<CartController>().getCartHistoryList();
+        Get.find<CartController>().getCartHistoryList().reversed.toList();
     Map<String, int> cartItemsPerOrder = {};
 
     for (int i = 0; i < getCartHistoryList.length; i++) {
@@ -33,6 +34,7 @@ class CartHistory extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+          // header
           Container(
             padding: EdgeInsets.only(top: Dimenstions.height45),
             height: Dimenstions.height20 * 5,
@@ -53,6 +55,8 @@ class CartHistory extends StatelessWidget {
               ],
             ),
           ),
+
+          // body
           Expanded(
             child: Container(
               margin: EdgeInsets.symmetric(
@@ -69,16 +73,26 @@ class CartHistory extends StatelessWidget {
                       margin: EdgeInsets.symmetric(
                         vertical: Dimenstions.width10,
                       ),
+                      height: Dimenstions.height20 * 6,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const BigText(
-                            text: '18/04/2022',
-                          ),
+                          (() {
+                            DateTime parseDate = DateTime.parse(
+                                getCartHistoryList[listCounter].time!);
+                            DateFormat outputFormat =
+                                DateFormat('MM/dd/yyyy hh:mm a');
+                            String outputDate = outputFormat.format(parseDate);
+
+                            return BigText(
+                              text: outputDate,
+                            );
+                          }()),
                           SizedBox(
                             height: Dimenstions.height10,
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Wrap(
                                 direction: Axis.horizontal,
@@ -88,28 +102,70 @@ class CartHistory extends StatelessWidget {
                                     listCounter++;
                                   }
 
-                                  return Container(
-                                    margin: EdgeInsets.symmetric(
-                                      horizontal: Dimenstions.width05 / 2,
+                                  return index2 <= 2
+                                      ? Container(
+                                          margin: EdgeInsets.symmetric(
+                                            horizontal: Dimenstions.width05 / 2,
+                                          ),
+                                          height: Dimenstions.height20 * 4,
+                                          width: Dimenstions.width20 * 4,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                                Dimenstions.radius15 / 2),
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                AppConstants.BASE_URL +
+                                                    AppConstants.UPLOAD_URL +
+                                                    getCartHistoryList[
+                                                            listCounter - 1]
+                                                        .img!,
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        )
+                                      : Container();
+                                }),
+                              ),
+                              SizedBox(
+                                height: Dimenstions.height20 * 4,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    const SmailText(
+                                      text: 'Total',
+                                      color: AppColors.titleColor,
                                     ),
-                                    height: Dimenstions.height20 * 4,
-                                    width: Dimenstions.width20 * 4,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          Dimenstions.radius15 / 2),
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                          AppConstants.BASE_URL +
-                                              AppConstants.UPLOAD_URL +
-                                              getCartHistoryList[
-                                                      listCounter - 1]
-                                                  .img!,
+                                    BigText(
+                                      text: '${itemsPerOrder[index]} Items',
+                                      color: AppColors.titleColor,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () =>
+                                          debugPrint('one more button'),
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: Dimenstions.height05,
+                                          horizontal: Dimenstions.width10,
                                         ),
-                                        fit: BoxFit.cover,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            Dimenstions.radius15 / 3,
+                                          ),
+                                          border: Border.all(
+                                              width: 1,
+                                              color: AppColors.mainColor),
+                                        ),
+                                        child: const SmailText(
+                                          text: 'one more',
+                                          color: AppColors.mainColor,
+                                        ),
                                       ),
                                     ),
-                                  );
-                                }),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
