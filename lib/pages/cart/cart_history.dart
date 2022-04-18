@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controllers/controllers.dart';
 import 'package:food_delivery_app/models/models.dart';
+import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
 import 'package:get/get.dart';
@@ -11,24 +14,26 @@ class CartHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<CartModel> getCartHistoryList =
-        Get.find<CartController>().getCartHistoryList().reversed.toList();
+    List<CartModel> getCartHistoryList = Get.find<CartController>().getCartHistoryList().reversed.toList();
     Map<String, int> cartItemsPerOrder = {};
 
     for (int i = 0; i < getCartHistoryList.length; i++) {
       if (cartItemsPerOrder.containsKey(getCartHistoryList[i].time!)) {
-        cartItemsPerOrder.update(
-            getCartHistoryList[i].time!, (value) => ++value);
+        cartItemsPerOrder.update(getCartHistoryList[i].time!, (value) => ++value);
       } else {
         cartItemsPerOrder.putIfAbsent(getCartHistoryList[i].time!, () => 1);
       }
     }
 
-    List<int> cartOrderTimeToList() {
+    List<int> cartItemsPerOrderToList() {
       return cartItemsPerOrder.entries.map((e) => e.value).toList();
     }
 
-    List<int> itemsPerOrder = cartOrderTimeToList();
+    List<String> cartOrderTimeToList() {
+      return cartItemsPerOrder.entries.map((e) => e.key).toList();
+    }
+
+    List<int> itemsPerOrder = cartItemsPerOrderToList();
     var listCounter = 0;
 
     return Scaffold(
@@ -78,10 +83,8 @@ class CartHistory extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           (() {
-                            DateTime parseDate = DateTime.parse(
-                                getCartHistoryList[listCounter].time!);
-                            DateFormat outputFormat =
-                                DateFormat('MM/dd/yyyy hh:mm a');
+                            DateTime parseDate = DateTime.parse(getCartHistoryList[listCounter].time!);
+                            DateFormat outputFormat = DateFormat('MM/dd/yyyy hh:mm a');
                             String outputDate = outputFormat.format(parseDate);
 
                             return BigText(
@@ -96,8 +99,7 @@ class CartHistory extends StatelessWidget {
                             children: [
                               Wrap(
                                 direction: Axis.horizontal,
-                                children: List.generate(itemsPerOrder[index],
-                                    (index2) {
+                                children: List.generate(itemsPerOrder[index], (index2) {
                                   if (listCounter < getCartHistoryList.length) {
                                     listCounter++;
                                   }
@@ -110,15 +112,10 @@ class CartHistory extends StatelessWidget {
                                           height: Dimenstions.height20 * 4,
                                           width: Dimenstions.width20 * 4,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                                Dimenstions.radius15 / 2),
+                                            borderRadius: BorderRadius.circular(Dimenstions.radius15 / 2),
                                             image: DecorationImage(
                                               image: NetworkImage(
-                                                AppConstants.BASE_URL +
-                                                    AppConstants.UPLOAD_URL +
-                                                    getCartHistoryList[
-                                                            listCounter - 1]
-                                                        .img!,
+                                                AppConstants.BASE_URL + AppConstants.UPLOAD_URL + getCartHistoryList[listCounter - 1].img!,
                                               ),
                                               fit: BoxFit.cover,
                                             ),
@@ -130,8 +127,7 @@ class CartHistory extends StatelessWidget {
                               SizedBox(
                                 height: Dimenstions.height20 * 4,
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     const SmailText(
@@ -143,8 +139,22 @@ class CartHistory extends StatelessWidget {
                                       color: AppColors.titleColor,
                                     ),
                                     GestureDetector(
-                                      onTap: () =>
-                                          debugPrint('one more button'),
+                                      onTap: () {
+                                        var orderTime = cartOrderTimeToList();
+                                        Map<int, CartModel> moreOrder = {};
+
+                                        for (int i = 0; i < getCartHistoryList.length; i++) {
+                                          if (getCartHistoryList[i].time == orderTime[index]) {
+                                            moreOrder.putIfAbsent(
+                                              getCartHistoryList[i].id!,
+                                              () => CartModel.fromJson(jsonDecode(jsonEncode(getCartHistoryList[i]))),
+                                            );
+                                          }
+                                        }
+                                        Get.find<CartController>().setItems = moreOrder;
+                                        Get.find<CartController>().addToCartList();
+                                        Get.toNamed(RouteHelper.getCartPage());
+                                      },
                                       child: Container(
                                         padding: EdgeInsets.symmetric(
                                           vertical: Dimenstions.height05,
@@ -154,9 +164,7 @@ class CartHistory extends StatelessWidget {
                                           borderRadius: BorderRadius.circular(
                                             Dimenstions.radius15 / 3,
                                           ),
-                                          border: Border.all(
-                                              width: 1,
-                                              color: AppColors.mainColor),
+                                          border: Border.all(width: 1, color: AppColors.mainColor),
                                         ),
                                         child: const SmailText(
                                           text: 'one more',

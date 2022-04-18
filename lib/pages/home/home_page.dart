@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.shopping_cart_outlined),
-        title: ("Cart"),
+        title: ("History"),
         activeColorPrimary: AppColors.mainColor,
         inactiveColorPrimary: Colors.grey,
       ),

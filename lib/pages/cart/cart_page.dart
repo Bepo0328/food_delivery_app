@@ -67,9 +67,7 @@ class CartPage extends StatelessWidget {
                     itemCount: controller.getItems.length,
                     itemBuilder: (context, index) {
                       CartModel cartItem = controller.getItems[index];
-                      String price =
-                          NumberFormat.simpleCurrency(decimalDigits: 1)
-                              .format(cartItem.price!);
+                      String price = NumberFormat.simpleCurrency(decimalDigits: 1).format(cartItem.price!);
 
                       return Container(
                         margin: EdgeInsets.symmetric(
@@ -82,34 +80,32 @@ class CartPage extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                int popularIndex =
-                                    Get.find<PopularProductController>()
-                                        .popularProductList
-                                        .indexOf(cartItem.product!);
+                                int popularIndex = Get.find<PopularProductController>().popularProductList.indexOf(cartItem.product!);
                                 if (popularIndex >= 0) {
-                                  Get.toNamed(RouteHelper.getPopularFood(
-                                      popularIndex, 'cartpage'));
+                                  Get.toNamed(RouteHelper.getPopularFood(popularIndex, 'cartpage'));
                                 } else {
-                                  int recommededIndex =
-                                      Get.find<RecommendedProductController>()
-                                          .recommendedProductList
-                                          .indexOf(cartItem.product!);
-                                  Get.toNamed(RouteHelper.getRecommendedFood(
-                                      recommededIndex, 'cartpage'));
+                                  int recommededIndex = Get.find<RecommendedProductController>().recommendedProductList.indexOf(cartItem.product!);
+                                  if (recommededIndex < 0) {
+                                    Get.snackbar(
+                                      'History product',
+                                      'Product review is not availble for history products',
+                                      backgroundColor: AppColors.mainColor,
+                                      colorText: Colors.white,
+                                    );
+                                  } else {
+                                    Get.toNamed(RouteHelper.getRecommendedFood(recommededIndex, 'cartpage'));
+                                  }
                                 }
                               },
                               child: Container(
                                 height: Dimenstions.height20 * 5,
                                 width: Dimenstions.width20 * 5,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                      Dimenstions.radius20),
+                                  borderRadius: BorderRadius.circular(Dimenstions.radius20),
                                   color: Colors.white,
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                      AppConstants.BASE_URL +
-                                          AppConstants.UPLOAD_URL +
-                                          cartItem.img!,
+                                      AppConstants.BASE_URL + AppConstants.UPLOAD_URL + cartItem.img!,
                                     ),
                                     fit: BoxFit.cover,
                                   ),
@@ -123,8 +119,7 @@ class CartPage extends StatelessWidget {
                               child: SizedBox(
                                 height: Dimenstions.height20 * 5,
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     BigText(
@@ -135,8 +130,7 @@ class CartPage extends StatelessWidget {
                                       text: 'Spicy',
                                     ),
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         BigText(
                                           text: price,
@@ -157,8 +151,7 @@ class CartPage extends StatelessWidget {
                                             children: [
                                               GestureDetector(
                                                 onTap: () {
-                                                  controller.addItem(
-                                                      cartItem.product!, -1);
+                                                  controller.addItem(cartItem.product!, -1);
                                                 },
                                                 child: const Icon(
                                                   Icons.remove,
@@ -176,8 +169,7 @@ class CartPage extends StatelessWidget {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  controller.addItem(
-                                                      cartItem.product!, 1);
+                                                  controller.addItem(cartItem.product!, 1);
                                                 },
                                                 child: const Icon(
                                                   Icons.add,
@@ -206,8 +198,7 @@ class CartPage extends StatelessWidget {
       ),
       bottomNavigationBar: GetBuilder<CartController>(
         builder: (cartController) {
-          String totalAmount = NumberFormat.simpleCurrency(decimalDigits: 0)
-              .format(cartController.totalAmount);
+          String totalAmount = NumberFormat.simpleCurrency(decimalDigits: 0).format(cartController.totalAmount);
 
           return Container(
             padding: EdgeInsets.symmetric(

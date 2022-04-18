@@ -10,10 +10,8 @@ class RouteHelper {
 
   static String getSplashPage() => splashPage;
   static String getInitial() => initial;
-  static String getPopularFood(int pageId, String page) =>
-      '$popularFood?pageId=$pageId&page=$page';
-  static String getRecommendedFood(int pageId, String page) =>
-      '$recommendedFood?pageId=$pageId&page=$page';
+  static String getPopularFood(int pageId, String page) => '$popularFood?pageId=$pageId&page=$page';
+  static String getRecommendedFood(int pageId, String page) => '$recommendedFood?pageId=$pageId&page=$page';
   static String getCartPage() => cartPage;
 
   static List<GetPage> routes = [

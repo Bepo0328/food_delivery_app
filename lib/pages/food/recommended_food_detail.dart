@@ -19,12 +19,9 @@ class RecommendedFoodDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProductModel recommendedProduct =
-        Get.find<RecommendedProductController>().recommendedProductList[pageId];
-    String price = NumberFormat.simpleCurrency(decimalDigits: 0)
-        .format(recommendedProduct.price!);
-    Get.find<PopularProductController>()
-        .initProduct(recommendedProduct, Get.find<CartController>());
+    ProductModel recommendedProduct = Get.find<RecommendedProductController>().recommendedProductList[pageId];
+    String price = NumberFormat.simpleCurrency(decimalDigits: 0).format(recommendedProduct.price!);
+    Get.find<PopularProductController>().initProduct(recommendedProduct, Get.find<CartController>());
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -117,9 +114,7 @@ class RecommendedFoodDetail extends StatelessWidget {
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(
-                AppConstants.BASE_URL +
-                    AppConstants.UPLOAD_URL +
-                    recommendedProduct.img!,
+                AppConstants.BASE_URL + AppConstants.UPLOAD_URL + recommendedProduct.img!,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),

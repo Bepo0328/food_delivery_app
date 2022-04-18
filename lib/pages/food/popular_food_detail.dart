@@ -19,12 +19,9 @@ class PopularFoodDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProductModel popularProduct =
-        Get.find<PopularProductController>().popularProductList[pageId];
-    String price = NumberFormat.simpleCurrency(decimalDigits: 0)
-        .format(popularProduct.price!);
-    Get.find<PopularProductController>()
-        .initProduct(popularProduct, Get.find<CartController>());
+    ProductModel popularProduct = Get.find<PopularProductController>().popularProductList[pageId];
+    String price = NumberFormat.simpleCurrency(decimalDigits: 0).format(popularProduct.price!);
+    Get.find<PopularProductController>().initProduct(popularProduct, Get.find<CartController>());
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -40,9 +37,7 @@ class PopularFoodDetail extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
-                    AppConstants.BASE_URL +
-                        AppConstants.UPLOAD_URL +
-                        popularProduct.img!,
+                    AppConstants.BASE_URL + AppConstants.UPLOAD_URL + popularProduct.img!,
                   ),
                   fit: BoxFit.cover,
                 ),

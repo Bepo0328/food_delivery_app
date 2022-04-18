@@ -67,9 +67,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         GetBuilder<PopularProductController>(
           builder: (popularProducts) {
             return DotsIndicator(
-              dotsCount: popularProducts.popularProductList.isEmpty
-                  ? 1
-                  : popularProducts.popularProductList.length,
+              dotsCount: popularProducts.popularProductList.isEmpty ? 1 : popularProducts.popularProductList.length,
               position: _currPageValue,
               decorator: DotsDecorator(
                 activeColor: AppColors.mainColor,
@@ -127,16 +125,12 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 ? ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: recommendedProductController
-                        .recommendedProductList.length,
+                    itemCount: recommendedProductController.recommendedProductList.length,
                     itemBuilder: (context, index) {
-                      ProductModel recommendedProduct =
-                          recommendedProductController
-                              .recommendedProductList[index];
+                      ProductModel recommendedProduct = recommendedProductController.recommendedProductList[index];
                       return GestureDetector(
                         onTap: () {
-                          Get.toNamed(
-                              RouteHelper.getRecommendedFood(index, 'home'));
+                          Get.toNamed(RouteHelper.getRecommendedFood(index, 'home'));
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(
@@ -156,9 +150,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                   color: Colors.white38,
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                      AppConstants.BASE_URL +
-                                          AppConstants.UPLOAD_URL +
-                                          recommendedProduct.img!,
+                                      AppConstants.BASE_URL + AppConstants.UPLOAD_URL + recommendedProduct.img!,
                                     ),
                                     fit: BoxFit.cover,
                                   ),
@@ -185,10 +177,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                       horizontal: Dimenstions.width10,
                                     ),
                                     child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         BigText(
                                           text: recommendedProduct.name!,
@@ -203,8 +193,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                           height: Dimenstions.height10,
                                         ),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: const [
                                             IconAndText(
                                               icon: Icons.circle_sharp,
@@ -248,23 +237,18 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     if (index == _currPageValue.floor()) {
       var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
       var currTrans = _height * (1 - currScale) / 2;
-      matrix = Matrix4.diagonal3Values(1, currScale, 1)
-        ..setTranslationRaw(0, currTrans, 0);
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0, currTrans, 0);
     } else if (index == _currPageValue.floor() + 1) {
-      var currScale =
-          _scaleFactor + (_currPageValue - index + 1) * (1 - _scaleFactor);
+      var currScale = _scaleFactor + (_currPageValue - index + 1) * (1 - _scaleFactor);
       var currTrans = _height * (1 - currScale) / 2;
-      matrix = Matrix4.diagonal3Values(1, currScale, 1)
-        ..setTranslationRaw(0, currTrans, 0);
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0, currTrans, 0);
     } else if (index == _currPageValue.floor() - 1) {
       var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
       var currTrans = _height * (1 - currScale) / 2;
-      matrix = Matrix4.diagonal3Values(1, currScale, 1)
-        ..setTranslationRaw(0, currTrans, 0);
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0, currTrans, 0);
     } else {
       var currScale = 0.8;
-      matrix = Matrix4.diagonal3Values(1, currScale, 1)
-        ..setTranslationRaw(0, _height * (1 - _scaleFactor) / 2, 0);
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0, _height * (1 - _scaleFactor) / 2, 0);
     }
 
     return Transform(
@@ -284,14 +268,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 borderRadius: BorderRadius.circular(
                   Dimenstions.radius30,
                 ),
-                color: index.isEven
-                    ? const Color(0xFF69c5df)
-                    : const Color(0xFF9294cc),
+                color: index.isEven ? const Color(0xFF69c5df) : const Color(0xFF9294cc),
                 image: DecorationImage(
                   image: NetworkImage(
-                    AppConstants.BASE_URL +
-                        AppConstants.UPLOAD_URL +
-                        popularProduct.img!,
+                    AppConstants.BASE_URL + AppConstants.UPLOAD_URL + popularProduct.img!,
                   ),
                   fit: BoxFit.cover,
                 ),
