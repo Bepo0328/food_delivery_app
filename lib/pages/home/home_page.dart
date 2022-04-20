@@ -34,11 +34,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       CartHistory(),
-      SizedBox(
-        child: Center(
-          child: Text('Next next next page'),
-        ),
-      ),
+      AccountPage(),
     ];
   }
 
