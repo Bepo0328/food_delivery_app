@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/utils/utils.dart';
-import 'package:food_delivery_app/widgets/account_widget.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
 
 class AccountPage extends StatelessWidget {

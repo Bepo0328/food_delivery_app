@@ -8,3 +8,4 @@ export 'splash/splash_page.dart';
 export 'cart/cart_history.dart';
 export 'base/no_data_page.dart';
 export 'account/account_page.dart';
+export 'auth/sign_up_page.dart';
