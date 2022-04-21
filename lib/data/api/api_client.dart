@@ -7,7 +7,6 @@ class ApiClient extends GetConnect implements GetxService {
   late String token;
   final String appBaseUrl;
 
-  // ignore: unused_field
   late Map<String, String> _mainHeaders;
 
   ApiClient({
@@ -25,14 +24,22 @@ class ApiClient extends GetConnect implements GetxService {
   Future<http.Response> getData(String uri) async {
     try {
       final url = Uri.parse('$baseUrl$uri');
-      http.Response response = await http.get(url);
+      http.Response response = await http.get(url, headers: _mainHeaders);
       return response;
     } catch (e) {
       debugPrint(e.toString());
-      return http.Response(
-        e.toString(),
-        1,
-      );
+      return http.Response(e.toString(), 1);
+    }
+  }
+
+  Future<http.Response> postData(String uri, dynamic body) async {
+    try {
+      final url = Uri.parse('$baseUrl$uri');
+      http.Response response = await http.post(url, body: body, headers: _mainHeaders);
+      return response;
+    } catch (e) {
+      debugPrint(e.toString());
+      return http.Response(e.toString(), 1);
     }
   }
 }
