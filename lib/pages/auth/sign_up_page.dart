@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/models/models.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
 import 'package:get/get.dart';
@@ -11,13 +12,65 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var emailController = TextEditingController();
     var passwordController = TextEditingController();
-    var nameController = TextEditingController();
     var phoneController = TextEditingController();
+    var nameController = TextEditingController();
     var signUpImages = [
       'g.png',
       't.png',
       'f.png',
     ];
+
+    void _registration() {
+      String email = emailController.text.trim();
+      String password = passwordController.text.trim();
+      String phone = phoneController.text.trim();
+      String name = nameController.text.trim();
+
+      if (email.isEmpty) {
+        showCustomSnackBar(
+          'Type in your email address',
+          title: 'Email address',
+        );
+      } else if (!GetUtils.isEmail(email)) {
+        showCustomSnackBar(
+          'Type in a valid email address',
+          title: 'Valid email address',
+        );
+      } else if (password.isEmpty) {
+        showCustomSnackBar(
+          'Type in your passwrod',
+          title: 'Password',
+        );
+      } else if (password.length < 6) {
+        showCustomSnackBar(
+          'Password can not be less than six characters',
+          title: 'Password',
+        );
+      } else if (phone.isEmpty) {
+        showCustomSnackBar(
+          'Type in your phone number',
+          title: 'Phone number',
+        );
+      } else if (name.isEmpty) {
+        showCustomSnackBar(
+          'Type in your name',
+          title: 'Name',
+        );
+      } else {
+        showCustomSnackBar(
+          'All went well',
+          title: 'Perfect',
+        );
+        SignUpBody signUpBody = SignUpBody(
+          email: email,
+          password: password,
+          phone: phone,
+          name: name,
+        );
+
+        debugPrint('$signUpBody');
+      }
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -71,22 +124,25 @@ class SignUpPage extends StatelessWidget {
                 icon: Icons.person,
                 iconColor: Colors.grey,
               ),
-              SizedBox(height: Dimenstions.height20),
+              SizedBox(height: Dimenstions.height30),
 
               // footer
               // sign up button
-              Container(
-                height: Dimenstions.screenHeight / 13,
-                width: Dimenstions.screenWidth / 2,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimenstions.radius30),
-                  color: AppColors.mainColor,
-                ),
-                child: Center(
-                  child: BigText(
-                    text: 'Sing up',
-                    size: Dimenstions.font30,
-                    color: Colors.white,
+              GestureDetector(
+                onTap: () => _registration(),
+                child: Container(
+                  height: Dimenstions.screenHeight / 13,
+                  width: Dimenstions.screenWidth / 2,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Dimenstions.radius30),
+                    color: AppColors.mainColor,
+                  ),
+                  child: Center(
+                    child: BigText(
+                      text: 'Sing up',
+                      size: Dimenstions.font30,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -96,14 +152,14 @@ class SignUpPage extends StatelessWidget {
               RichText(
                 text: TextSpan(
                   recognizer: TapGestureRecognizer()..onTap = () => Get.back(),
-                  text: 'Have an account already?',
+                  text: 'Have an account?',
                   style: TextStyle(
                     color: Colors.grey[500],
                     fontSize: Dimenstions.font20,
                   ),
                 ),
               ),
-              SizedBox(height: Dimenstions.screenHeight * 0.05),
+              SizedBox(height: Dimenstions.height30),
 
               // sign up options
               RichText(

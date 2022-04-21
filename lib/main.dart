@@ -18,18 +18,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PopularProductController>(builder: (_) {
-      return GetBuilder<RecommendedProductController>(builder: (_) {
-        return GetBuilder<CartController>(builder: (controller) {
-          controller.getCartData();
+    return GetBuilder<AuthController>(builder: (_) {
+      return GetBuilder<PopularProductController>(builder: (_) {
+        return GetBuilder<RecommendedProductController>(builder: (_) {
+          return GetBuilder<CartController>(builder: (controller) {
+            controller.getCartData();
 
-          return const GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Food Delivery App',
-            home: SignInPage(),
-            // initialRoute: RouteHelper.getSplashPage(),
-            // getPages: RouteHelper.routes,
-          );
+            return const GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Food Delivery App',
+              home: SignInPage(),
+              // initialRoute: RouteHelper.getSplashPage(),
+              // getPages: RouteHelper.routes,
+            );
+          });
         });
       });
     });
