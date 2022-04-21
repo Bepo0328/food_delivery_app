@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           return const GetMaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Food Delivery App',
-            home: SignUpPage(),
+            home: SignInPage(),
             // initialRoute: RouteHelper.getSplashPage(),
             // getPages: RouteHelper.routes,
           );
