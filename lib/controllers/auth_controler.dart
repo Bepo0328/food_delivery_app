@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:food_delivery_app/data/repository/auth_repo.dart';
 import 'package:food_delivery_app/models/models.dart';
 import 'package:get/get.dart';
@@ -17,6 +19,8 @@ class AuthController extends GetxController implements GetxService {
     _isLoading = true;
     http.Response response = await authRepo.registration(signUpBody);
     if (response.statusCode == 200) {
+      var responseBody = jsonDecode(response.body);
+      authRepo.saveUserToken(responseBody['token']);
     } else {}
   }
 }
