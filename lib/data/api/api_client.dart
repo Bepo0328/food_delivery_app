@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:get/get.dart';
@@ -16,14 +18,14 @@ class ApiClient extends GetConnect implements GetxService {
     timeout = const Duration(seconds: 30);
     token = AppConstants.TOKEN;
     _mainHeaders = {
-      'Content-type': 'application/json; charset = UTF-8',
+      'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Bearer $token',
     };
   }
 
   void updateHeader(String token) {
     _mainHeaders = {
-      'Content-type': 'application/json; charset = UTF-8',
+      'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Bearer $token',
     };
   }
@@ -40,9 +42,11 @@ class ApiClient extends GetConnect implements GetxService {
   }
 
   Future<http.Response> postData(String uri, dynamic body) async {
+    debugPrint('body: $body');
     try {
       final url = Uri.parse('$baseUrl$uri');
-      http.Response response = await http.post(url, body: body, headers: _mainHeaders);
+      http.Response response = await http.post(url, body: jsonEncode(body), headers: _mainHeaders);
+      debugPrint('responseBody: ${response.body}');
       return response;
     } catch (e) {
       debugPrint(e.toString());

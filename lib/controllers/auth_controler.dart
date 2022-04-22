@@ -15,12 +15,19 @@ class AuthController extends GetxController implements GetxService {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  registration(SignUpBody signUpBody) async {
+  Future<ResponseModel> registration(SignUpBody signUpBody) async {
     _isLoading = true;
     http.Response response = await authRepo.registration(signUpBody);
+    late ResponseModel responseModel;
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
       authRepo.saveUserToken(responseBody['token']);
-    } else {}
+      responseModel = ResponseModel(true, responseBody['token']);
+    } else {
+      responseModel = ResponseModel(false, response.reasonPhrase.toString());
+    }
+    _isLoading = false;
+    update();
+    return responseModel;
   }
 }
