@@ -6,6 +6,7 @@ class AppTextField extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final Color iconColor;
+  final bool isObscure;
 
   const AppTextField({
     Key? key,
@@ -13,6 +14,7 @@ class AppTextField extends StatelessWidget {
     required this.hintText,
     required this.icon,
     this.iconColor = AppColors.mainColor,
+    this.isObscure = false,
   }) : super(key: key);
 
   @override
@@ -23,17 +25,18 @@ class AppTextField extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(Dimenstions.radius30),
+        borderRadius: BorderRadius.circular(Dimenstions.radius15),
         boxShadow: [
           BoxShadow(
-            blurRadius: 10,
-            spreadRadius: 7,
-            offset: const Offset(1, 10),
+            blurRadius: 3,
+            spreadRadius: 1,
+            offset: const Offset(1, 1),
             color: Colors.grey.withOpacity(0.2),
           ),
         ],
       ),
       child: TextField(
+        obscureText: isObscure,
         controller: textController,
         decoration: InputDecoration(
           hintText: hintText,
@@ -42,14 +45,14 @@ class AppTextField extends StatelessWidget {
             color: iconColor,
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(Dimenstions.radius30),
+            borderRadius: BorderRadius.circular(Dimenstions.radius15),
             borderSide: const BorderSide(
               width: 1.0,
               color: Colors.white,
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(Dimenstions.radius30),
+            borderRadius: BorderRadius.circular(Dimenstions.radius15),
             borderSide: const BorderSide(
               width: 1.0,
               color: Colors.white,

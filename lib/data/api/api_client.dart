@@ -46,7 +46,12 @@ class ApiClient extends GetConnect implements GetxService {
     try {
       final url = Uri.parse('$baseUrl$uri');
       http.Response response = await http.post(url, body: jsonEncode(body), headers: _mainHeaders);
-      debugPrint('responseBody: ${response.body}');
+
+      debugPrint('response: $response');
+      debugPrint('body: ${response.body}');
+      debugPrint('bodyBytes: ${response.bodyBytes}');
+      debugPrint('headers: ${response.headers}');
+
       return response;
     } catch (e) {
       debugPrint(e.toString());
