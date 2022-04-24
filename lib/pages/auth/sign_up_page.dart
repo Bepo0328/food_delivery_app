@@ -58,10 +58,6 @@ class SignUpPage extends StatelessWidget {
           title: 'Name',
         );
       } else {
-        showCustomSnackBar(
-          'All went well',
-          title: 'Perfect',
-        );
         SignUpBody signUpBody = SignUpBody(
           email: email,
           password: password,
