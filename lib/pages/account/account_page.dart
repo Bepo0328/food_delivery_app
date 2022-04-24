@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/controllers/controllers.dart';
+import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
+import 'package:get/get.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -114,16 +117,28 @@ class AccountPage extends StatelessWidget {
                     SizedBox(height: Dimenstions.height20),
 
                     // logout
-                    AccountWidget(
-                      appIcon: AppIcon(
-                        icon: Icons.logout,
-                        backgroundColor: Colors.redAccent,
-                        iconColor: Colors.white,
-                        iconSize: Dimenstions.iconSize10 * 5 / 2,
-                        size: Dimenstions.height10 * 5,
-                      ),
-                      bigText: const BigText(
-                        text: 'Logout',
+                    GestureDetector(
+                      onTap: () {
+                        if (Get.find<AuthController>().userLoggedIn()) {
+                          Get.find<AuthController>().clearSharedData();
+                          Get.find<CartController>().clear();
+                          Get.find<CartController>().clearCartHistory();
+                          Get.offNamed(RouteHelper.getSignInPage());
+                        } else {
+                          debugPrint('you logged out');
+                        }
+                      },
+                      child: AccountWidget(
+                        appIcon: AppIcon(
+                          icon: Icons.logout,
+                          backgroundColor: Colors.redAccent,
+                          iconColor: Colors.white,
+                          iconSize: Dimenstions.iconSize10 * 5 / 2,
+                          size: Dimenstions.height10 * 5,
+                        ),
+                        bigText: const BigText(
+                          text: 'Logout',
+                        ),
                       ),
                     ),
                     SizedBox(height: Dimenstions.height20),

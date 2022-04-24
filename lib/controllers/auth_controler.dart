@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:food_delivery_app/data/repository/auth_repo.dart';
 import 'package:food_delivery_app/models/models.dart';
 import 'package:get/get.dart';
@@ -57,5 +56,9 @@ class AuthController extends GetxController implements GetxService {
 
   bool userLoggedIn() {
     return authRepo.userLoggedIn();
+  }
+
+  bool clearSharedData() {
+    return authRepo.clearSharedData();
   }
 }
