@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:food_delivery_app/data/repository/auth_repo.dart';
 import 'package:food_delivery_app/models/models.dart';
 import 'package:get/get.dart';
@@ -33,6 +34,7 @@ class AuthController extends GetxController implements GetxService {
   }
 
   Future<ResponseModel> login(String email, String password) async {
+    authRepo.getUserToken();
     _isLoading = true;
     update();
     http.Response response = await authRepo.login(email, password);
@@ -51,5 +53,9 @@ class AuthController extends GetxController implements GetxService {
 
   void saveUserNumberAndPassword(String number, String password) {
     authRepo.saveUserNumberAndPassword(number, password);
+  }
+
+  bool userLoggedIn() {
+    return authRepo.userLoggedIn();
   }
 }

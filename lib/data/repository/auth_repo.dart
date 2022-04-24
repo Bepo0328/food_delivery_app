@@ -18,6 +18,14 @@ class AuthRepo {
     return await apiClient.postData(AppConstants.REGISTRATION_URL, signUpBody.toJson());
   }
 
+  bool userLoggedIn() {
+    return sharedPreferences.containsKey(AppConstants.TOKEN);
+  }
+
+  Future<String> getUserToken() async {
+    return sharedPreferences.getString(AppConstants.TOKEN) ?? 'None';
+  }
+
   Future<http.Response> login(String email, String password) async {
     return await apiClient.postData(AppConstants.LOGIN_URL, {'email': email, 'password': password});
   }

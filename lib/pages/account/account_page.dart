@@ -108,22 +108,22 @@ class AccountPage extends StatelessWidget {
                         size: Dimenstions.height10 * 5,
                       ),
                       bigText: const BigText(
-                        text: 'Ahmed',
+                        text: 'Messages',
                       ),
                     ),
                     SizedBox(height: Dimenstions.height20),
 
-                    // message
+                    // logout
                     AccountWidget(
                       appIcon: AppIcon(
-                        icon: Icons.message_outlined,
+                        icon: Icons.logout,
                         backgroundColor: Colors.redAccent,
                         iconColor: Colors.white,
                         iconSize: Dimenstions.iconSize10 * 5 / 2,
                         size: Dimenstions.height10 * 5,
                       ),
                       bigText: const BigText(
-                        text: 'Ahmed',
+                        text: 'Logout',
                       ),
                     ),
                     SizedBox(height: Dimenstions.height20),

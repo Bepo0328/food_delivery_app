@@ -15,7 +15,7 @@ class AppConstants {
   static const String REGISTRATION_URL = '/api/v1/auth/register';
   static const String LOGIN_URL = '/api/v1/auth/login';
 
-  static const String TOKEN = 'DBtoken';
+  static const String TOKEN = '';
   static const String PHONE = '';
   static const String PASSWORD = '';
   static const String CART_LIST = 'cart-list';
