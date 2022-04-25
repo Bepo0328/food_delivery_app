@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:food_delivery_app/data/repository/auth_repo.dart';
+import 'package:food_delivery_app/data/repository/repository.dart';
 import 'package:food_delivery_app/models/models.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
