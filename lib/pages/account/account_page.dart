@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controllers/controllers.dart';
-import 'package:food_delivery_app/models/models.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
@@ -28,8 +27,7 @@ class AccountPage extends StatelessWidget {
         ),
       ),
       body: GetBuilder<UserController>(builder: (_userController) {
-        UserModel user = _userController.userModel;
-
+        debugPrint('_userLoggedIn: $_userLoggedIn');
         return _userLoggedIn
             ? (!_userController.isLoading
                 ? Container(
@@ -63,7 +61,7 @@ class AccountPage extends StatelessWidget {
                                     size: Dimenstions.height10 * 5,
                                   ),
                                   bigText: BigText(
-                                    text: user.name,
+                                    text: _userController.userModel!.name,
                                   ),
                                 ),
                                 SizedBox(height: Dimenstions.height20),
@@ -78,7 +76,7 @@ class AccountPage extends StatelessWidget {
                                     size: Dimenstions.height10 * 5,
                                   ),
                                   bigText: BigText(
-                                    text: user.phone,
+                                    text: _userController.userModel!.phone,
                                   ),
                                 ),
                                 SizedBox(height: Dimenstions.height20),
@@ -93,7 +91,7 @@ class AccountPage extends StatelessWidget {
                                     size: Dimenstions.height10 * 5,
                                   ),
                                   bigText: BigText(
-                                    text: user.email,
+                                    text: _userController.userModel!.email,
                                   ),
                                 ),
                                 SizedBox(height: Dimenstions.height20),
@@ -162,8 +160,49 @@ class AccountPage extends StatelessWidget {
                     ),
                   )
                 : const CustomLoader())
-            : const Center(
-                child: Text('You must login'),
+            : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: Dimenstions.width20,
+                      ),
+                      height: Dimenstions.height20 * 8,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Dimenstions.radius20),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/image/signintocontinue.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(RouteHelper.getSignInPage());
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: Dimenstions.width20,
+                        ),
+                        height: Dimenstions.height20 * 5,
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                          color: AppColors.mainColor,
+                          borderRadius: BorderRadius.circular(Dimenstions.radius20),
+                        ),
+                        child: Center(
+                          child: BigText(
+                            text: 'Sign in',
+                            color: Colors.white,
+                            size: Dimenstions.font26,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               );
       }),
     );
