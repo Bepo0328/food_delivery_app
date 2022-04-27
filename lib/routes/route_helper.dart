@@ -8,6 +8,7 @@ class RouteHelper {
   static const String recommendedFood = '/recommended-food';
   static const String cartPage = '/cart-page';
   static const String signIn = '/sign-in';
+  static const String addAddress = '/add-address';
 
   static String getSplashPage() => splashPage;
   static String getInitial() => initial;
@@ -15,6 +16,7 @@ class RouteHelper {
   static String getRecommendedFood(int pageId, String page) => '$recommendedFood?pageId=$pageId&page=$page';
   static String getCartPage() => cartPage;
   static String getSignInPage() => signIn;
+  static String getAddAddressPage() => addAddress;
 
   static List<GetPage> routes = [
     GetPage(
@@ -52,6 +54,10 @@ class RouteHelper {
       name: signIn,
       page: () => const SignInPage(),
       transition: Transition.fade,
+    ),
+    GetPage(
+      name: addAddress,
+      page: () => const AddAddressPage(),
     ),
   ];
 }
