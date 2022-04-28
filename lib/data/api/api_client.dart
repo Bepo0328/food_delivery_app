@@ -40,9 +40,9 @@ class ApiClient extends GetConnect implements GetxService {
       final url = Uri.parse('$baseUrl$uri');
       http.Response response = await http.get(url, headers: headers ?? _mainHeaders);
 
-      debugPrint('url: $url');
-      debugPrint('headers-1: $headers');
-      debugPrint('headers-2: $_mainHeaders');
+      // debugPrint('url: $url');
+      // debugPrint('headers-1: $headers');
+      // debugPrint('headers-2: $_mainHeaders');
 
       return response;
     } catch (e) {

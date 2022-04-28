@@ -25,9 +25,8 @@ class UserController extends GetxController implements GetxService {
 
     http.Response response = await userRepo.getUserInfo();
     late ResponseModel responseModel;
-    debugPrint('headers: ${response.headers}');
-    debugPrint('phrase: ${response.reasonPhrase}');
-
+    // debugPrint('headers: ${response.headers}');
+    // debugPrint('phrase: ${response.reasonPhrase}');
     if (response.statusCode == 200) {
       var responseBody = jsonDecode(response.body);
       _userModel = UserModel.fromJson(responseBody);

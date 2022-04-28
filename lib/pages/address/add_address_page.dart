@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controllers/controllers.dart';
 import 'package:food_delivery_app/utils/utils.dart';
+import 'package:food_delivery_app/widgets/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -78,46 +79,74 @@ class _AddAddressPageState extends State<AddAddressPage> {
         title: const Text('Address page'),
         backgroundColor: AppColors.mainColor,
       ),
-      body: GetBuilder<LocationController>(builder: (_locationController) {
-        return Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.all(5),
-              height: Dimenstions.height20 * 7,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(
-                  width: 2,
-                  color: Theme.of(context).primaryColor,
+      body: GetBuilder<UserController>(builder: (_userController) {
+        if (_userController.userModel != null && _contactPersonName.text.isEmpty) {
+          _contactPersonName.text = '${_userController.userModel?.name}';
+          _contactPersonNumber.text = '${_userController.userModel?.phone}';
+          if (Get.find<LocationController>().addressList.isNotEmpty) {}
+        }
+
+        return GetBuilder<LocationController>(builder: (_locationController) {
+          _addressController.text = '${_locationController.placemark.name ?? ''}'
+              '${_locationController.placemark.locality ?? ''}'
+              '${_locationController.placemark.postalCode ?? ''}'
+              '${_locationController.placemark.country ?? ''}';
+          debugPrint('address in my view is ${_addressController.text}');
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.all(5),
+                height: Dimenstions.height20 * 7,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    width: 2,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+                child: Stack(
+                  children: [
+                    GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: _initialPosition,
+                        zoom: 17,
+                      ),
+                      zoomControlsEnabled: false,
+                      compassEnabled: false,
+                      indoorViewEnabled: true,
+                      mapToolbarEnabled: false,
+                      onCameraIdle: () {
+                        _locationController.updatePosition(_cameraPosition, true);
+                      },
+                      onCameraMove: ((position) => _cameraPosition = position),
+                      onMapCreated: (GoogleMapController controller) {
+                        _locationController.setMapController(controller);
+                      },
+                      myLocationEnabled: true,
+                      myLocationButtonEnabled: true,
+                    ),
+                  ],
                 ),
               ),
-              child: Stack(
-                children: [
-                  GoogleMap(
-                    initialCameraPosition: CameraPosition(
-                      target: _initialPosition,
-                      zoom: 17,
-                    ),
-                    zoomControlsEnabled: false,
-                    compassEnabled: false,
-                    indoorViewEnabled: true,
-                    mapToolbarEnabled: false,
-                    onCameraIdle: () {
-                      _locationController.updatePosition(_cameraPosition, true);
-                    },
-                    onCameraMove: ((position) => _cameraPosition = position),
-                    onMapCreated: (GoogleMapController controller) {
-                      _locationController.setMapController(controller);
-                    },
-                    myLocationEnabled: true,
-                    myLocationButtonEnabled: true,
-                  ),
-                ],
+              SizedBox(height: Dimenstions.height20),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: Dimenstions.width20,
+                ),
+                child: const BigText(text: 'Delivery Address'),
               ),
-            ),
-          ],
-        );
+              SizedBox(height: Dimenstions.height20),
+              AppTextField(
+                textController: _addressController,
+                hintText: 'Your address',
+                icon: Icons.map,
+              ),
+            ],
+          );
+        });
       }),
     );
   }
