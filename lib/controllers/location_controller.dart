@@ -40,6 +40,8 @@ class LocationController extends GetxController implements GetxService {
   int get addressTypeIndex => _addressTypeIndex;
 
   late GoogleMapController _mapController;
+  GoogleMapController get mapController => _mapController;
+
   final bool _updateAddressData = true;
   final bool _changeAddress = true;
 
@@ -129,5 +131,27 @@ class LocationController extends GetxController implements GetxService {
   void setAddressTypeIndex(int index) {
     _addressTypeIndex = index;
     update();
+  }
+
+  Future<ResponseModel> addAddress(AddressModel addressModel) async {
+    _loading = true;
+    update();
+    http.Response response = await locationRepo.addAddress(addressModel);
+    ResponseModel responseModel;
+    // debugPrint('headers: ${response.headers}');
+    // debugPrint('phrase: ${response.reasonPhrase}');
+    var responseBody = jsonDecode(response.body);
+    // debugPrint('responseBody: $responseBody');
+    if (response.statusCode == 200) {
+      String message = responseBody['message'];
+      responseModel = ResponseModel(true, message);
+      // saveUserAddress()
+      debugPrint('Save the address!!');
+    } else {
+      debugPrint('could\'t save the address');
+      responseModel = ResponseModel(false, response.reasonPhrase ?? '');
+    }
+    update();
+    return responseModel;
   }
 }

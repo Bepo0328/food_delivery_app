@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controllers/controllers.dart';
+import 'package:food_delivery_app/models/models.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
 import 'package:get/get.dart';
@@ -227,6 +228,71 @@ class _AddAddressPageState extends State<AddAddressPage> {
           );
         });
       }),
+      bottomNavigationBar: GetBuilder<LocationController>(
+        builder: (_locationController) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: Dimenstions.height20 * 6,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(
+                      Dimenstions.radius20 * 2,
+                    ),
+                    topRight: Radius.circular(
+                      Dimenstions.radius20 * 2,
+                    ),
+                  ),
+                  color: AppColors.buttonBackgroundColor,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        AddressModel _addressModel = AddressModel(
+                          addressType: _locationController.addressTypeList[_locationController.addressTypeIndex],
+                          contactPersonName: _contactPersonName.text,
+                          contactPersonNumber: _contactPersonNumber.text,
+                          address: _addressController.text,
+                          latitude: _locationController.position.latitude.toString(),
+                          longitude: _locationController.position.longitude.toString(),
+                        );
+                        _locationController.addAddress(_addressModel).then((response) {
+                          if (response.isSuccess) {
+                            Get.back();
+                            Get.snackbar('Address', 'Added Successfully!');
+                          } else {
+                            Get.snackbar('Address', 'Couldn\'t save address');
+                          }
+                        });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: Dimenstions.height20,
+                          horizontal: Dimenstions.width20,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            Dimenstions.radius20,
+                          ),
+                          color: AppColors.mainColor,
+                        ),
+                        child: BigText(
+                          text: 'Save address',
+                          color: Colors.white,
+                          size: Dimenstions.font26,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

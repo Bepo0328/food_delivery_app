@@ -1,4 +1,5 @@
 import 'package:food_delivery_app/data/api/api_client.dart';
+import 'package:food_delivery_app/models/models.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -20,5 +21,9 @@ class LocationRepo {
 
   String? getUserAddress() {
     return sharedPreferences.getString(AppConstants.USER_ADDRESS);
+  }
+
+  Future<http.Response> addAddress(AddressModel addressModel) async {
+    return await apiClient.postData(AppConstants.ADD_USER_ADDRESS, addressModel.toJson());
   }
 }
