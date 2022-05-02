@@ -95,84 +95,135 @@ class _AddAddressPageState extends State<AddAddressPage> {
               '${_locationController.placemark.country ?? ''}';
           debugPrint('address in my view is ${_addressController.text}');
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.all(5),
-                height: Dimenstions.height20 * 7,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    width: 2,
-                    color: AppColors.mainColor,
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.all(5),
+                  height: Dimenstions.height20 * 7,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                      width: 2,
+                      color: AppColors.mainColor,
+                    ),
+                  ),
+                  child: Stack(
+                    children: [
+                      GoogleMap(
+                        initialCameraPosition: CameraPosition(
+                          target: _initialPosition,
+                          zoom: 17,
+                        ),
+                        zoomControlsEnabled: false,
+                        compassEnabled: false,
+                        indoorViewEnabled: true,
+                        mapToolbarEnabled: false,
+                        onCameraIdle: () {
+                          _locationController.updatePosition(_cameraPosition, true);
+                        },
+                        onCameraMove: ((position) => _cameraPosition = position),
+                        onMapCreated: (GoogleMapController controller) {
+                          _locationController.setMapController(controller);
+                        },
+                        myLocationEnabled: true,
+                        myLocationButtonEnabled: true,
+                      ),
+                    ],
                   ),
                 ),
-                child: Stack(
-                  children: [
-                    GoogleMap(
-                      initialCameraPosition: CameraPosition(
-                        target: _initialPosition,
-                        zoom: 17,
-                      ),
-                      zoomControlsEnabled: false,
-                      compassEnabled: false,
-                      indoorViewEnabled: true,
-                      mapToolbarEnabled: false,
-                      onCameraIdle: () {
-                        _locationController.updatePosition(_cameraPosition, true);
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: Dimenstions.height20,
+                    horizontal: Dimenstions.height20,
+                  ),
+                  child: SizedBox(
+                    height: Dimenstions.height10 * 5,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _locationController.addressTypeList.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            _locationController.setAddressTypeIndex(index);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: Dimenstions.height10,
+                              horizontal: Dimenstions.width20,
+                            ),
+                            margin: EdgeInsets.symmetric(
+                              horizontal: Dimenstions.width05,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(Dimenstions.radius20 / 4),
+                              color: Theme.of(context).cardColor,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade200,
+                                  spreadRadius: 1,
+                                  blurRadius: 5,
+                                ),
+                              ],
+                            ),
+                            child: Icon(
+                              index == 0
+                                  ? Icons.home_filled
+                                  : index == 1
+                                      ? Icons.work
+                                      : Icons.location_on,
+                              color: _locationController.addressTypeIndex == index ? AppColors.mainColor : Theme.of(context).disabledColor,
+                            ),
+                          ),
+                        );
                       },
-                      onCameraMove: ((position) => _cameraPosition = position),
-                      onMapCreated: (GoogleMapController controller) {
-                        _locationController.setMapController(controller);
-                      },
-                      myLocationEnabled: true,
-                      myLocationButtonEnabled: true,
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              SizedBox(height: Dimenstions.height20),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: Dimenstions.width20,
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Dimenstions.width20,
+                  ),
+                  child: const BigText(text: 'Delivery Address'),
                 ),
-                child: const BigText(text: 'Delivery Address'),
-              ),
-              SizedBox(height: Dimenstions.height10),
-              AppTextField(
-                textController: _addressController,
-                hintText: 'Your address',
-                icon: Icons.map,
-              ),
-              SizedBox(height: Dimenstions.height20),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: Dimenstions.width20,
+                SizedBox(height: Dimenstions.height10),
+                AppTextField(
+                  textController: _addressController,
+                  hintText: 'Your address',
+                  icon: Icons.map,
                 ),
-                child: const BigText(text: 'Contact name'),
-              ),
-              SizedBox(height: Dimenstions.height10),
-              AppTextField(
-                textController: _contactPersonName,
-                hintText: 'Your name',
-                icon: Icons.person,
-              ),
-              SizedBox(height: Dimenstions.height20),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: Dimenstions.width20,
+                SizedBox(height: Dimenstions.height20),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Dimenstions.width20,
+                  ),
+                  child: const BigText(text: 'Contact name'),
                 ),
-                child: const BigText(text: 'Your number'),
-              ),
-              SizedBox(height: Dimenstions.height10),
-              AppTextField(
-                textController: _contactPersonNumber,
-                hintText: 'Your number',
-                icon: Icons.phone,
-              ),
-            ],
+                SizedBox(height: Dimenstions.height10),
+                AppTextField(
+                  textController: _contactPersonName,
+                  hintText: 'Your name',
+                  icon: Icons.person,
+                ),
+                SizedBox(height: Dimenstions.height20),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Dimenstions.width20,
+                  ),
+                  child: const BigText(text: 'Your number'),
+                ),
+                SizedBox(height: Dimenstions.height10),
+                AppTextField(
+                  textController: _contactPersonNumber,
+                  hintText: 'Your number',
+                  icon: Icons.phone,
+                ),
+                SizedBox(height: Dimenstions.height20),
+              ],
+            ),
           );
         });
       }),
