@@ -83,7 +83,9 @@ class _AddAddressPageState extends State<AddAddressPage> {
         if (_userController.userModel != null && _contactPersonName.text.isEmpty) {
           _contactPersonName.text = '${_userController.userModel?.name}';
           _contactPersonNumber.text = '${_userController.userModel?.phone}';
-          if (Get.find<LocationController>().addressList.isNotEmpty) {}
+          if (Get.find<LocationController>().addressList.isNotEmpty) {
+            _addressController.text = Get.find<LocationController>().getUserAddress().address;
+          }
         }
 
         return GetBuilder<LocationController>(builder: (_locationController) {
@@ -104,7 +106,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
                     width: 2,
-                    color: Theme.of(context).primaryColor,
+                    color: AppColors.mainColor,
                   ),
                 ),
                 child: Stack(
@@ -138,11 +140,37 @@ class _AddAddressPageState extends State<AddAddressPage> {
                 ),
                 child: const BigText(text: 'Delivery Address'),
               ),
-              SizedBox(height: Dimenstions.height20),
+              SizedBox(height: Dimenstions.height10),
               AppTextField(
                 textController: _addressController,
                 hintText: 'Your address',
                 icon: Icons.map,
+              ),
+              SizedBox(height: Dimenstions.height20),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: Dimenstions.width20,
+                ),
+                child: const BigText(text: 'Contact name'),
+              ),
+              SizedBox(height: Dimenstions.height10),
+              AppTextField(
+                textController: _contactPersonName,
+                hintText: 'Your name',
+                icon: Icons.person,
+              ),
+              SizedBox(height: Dimenstions.height20),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: Dimenstions.width20,
+                ),
+                child: const BigText(text: 'Your number'),
+              ),
+              SizedBox(height: Dimenstions.height10),
+              AppTextField(
+                textController: _contactPersonNumber,
+                hintText: 'Your number',
+                icon: Icons.phone,
               ),
             ],
           );

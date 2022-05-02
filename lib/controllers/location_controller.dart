@@ -37,9 +37,6 @@ class LocationController extends GetxController implements GetxService {
   final List<String> _addressTypeList = ['home', 'office', 'others'];
   final int _addressTypeIndex = 0;
 
-  late Map<String, dynamic> _getAddress;
-  Map get getAddress => _getAddress;
-
   late GoogleMapController _mapController;
   final bool _updateAddressData = true;
   final bool _changeAddress = true;
@@ -110,5 +107,20 @@ class LocationController extends GetxController implements GetxService {
       debugPrint('Error getting the google api');
     }
     return _address;
+  }
+
+  late Map<String, dynamic> _getAddress;
+  Map get getAddress => _getAddress;
+
+  AddressModel getUserAddress() {
+    late AddressModel _addressModel;
+    _getAddress = jsonDecode(locationRepo.getUserAddress() ?? '');
+
+    try {
+      _addressModel = AddressModel.fromJson(_getAddress);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return _addressModel;
   }
 }
