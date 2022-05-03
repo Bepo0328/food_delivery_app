@@ -29,10 +29,11 @@ class LocationController extends GetxController implements GetxService {
   Placemark get placemark => _placemark;
   Placemark get pickPlacemark => _pickPlacemark;
 
-  final List<AddressModel> _addressList = [];
+  List<AddressModel> _addressList = [];
   List<AddressModel> get addressList => _addressList;
 
   late List<AddressModel> _allAddressList;
+  List<AddressModel> get allAddressList => _allAddressList;
 
   final List<String> _addressTypeList = ['home', 'office', 'others'];
   List<String> get addressTypeList => _addressTypeList;
@@ -143,9 +144,10 @@ class LocationController extends GetxController implements GetxService {
     var responseBody = jsonDecode(response.body);
     // debugPrint('responseBody: $responseBody');
     if (response.statusCode == 200) {
+      getAddressList();
       String message = responseBody['message'];
       responseModel = ResponseModel(true, message);
-      // saveUserAddress()
+      await saveUserAddrss(addressModel);
       debugPrint('Save the address!!');
     } else {
       debugPrint('could\'t save the address');
@@ -153,5 +155,31 @@ class LocationController extends GetxController implements GetxService {
     }
     update();
     return responseModel;
+  }
+
+  Future<void> getAddressList() async {
+    http.Response response = await locationRepo.getAllAddress();
+    // debugPrint('headers: ${response.headers}');
+    // debugPrint('phrase: ${response.reasonPhrase}');
+    var responseBody = jsonDecode(response.body);
+    // debugPrint('responseBody: $responseBody');
+    if (response.statusCode == 200) {
+      _addressList = [];
+      _allAddressList = [];
+      responseBody.forEach((address) {
+        debugPrint('address: $address');
+        _addressList.add(AddressModel.fromJson(address));
+        _allAddressList.add(AddressModel.fromJson(address));
+      });
+    } else {
+      _addressList = [];
+      _allAddressList = [];
+    }
+    update();
+  }
+
+  Future<bool> saveUserAddrss(AddressModel addressModel) async {
+    String userAddresss = jsonEncode(addressModel.toJson());
+    return await locationRepo.saveUserAddress(userAddresss);
   }
 }
