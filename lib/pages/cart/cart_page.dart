@@ -262,6 +262,8 @@ class CartPage extends StatelessWidget {
                             _cartController.addToHistory();
                             if (Get.find<LocationController>().addressList.isEmpty) {
                               Get.toNamed(RouteHelper.getAddAddressPage());
+                            } else {
+                              Get.offNamed(RouteHelper.getInitial());
                             }
                           } else {
                             Get.toNamed(RouteHelper.getSignInPage());

@@ -26,6 +26,7 @@ class RouteHelper {
     GetPage(
       name: initial,
       page: () => const HomePage(),
+      transition: Transition.fade,
     ),
     GetPage(
       name: popularFood,

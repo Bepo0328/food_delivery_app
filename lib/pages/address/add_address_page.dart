@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controllers/controllers.dart';
 import 'package:food_delivery_app/models/models.dart';
+import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
 import 'package:get/get.dart';
@@ -42,6 +43,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
       userContoller.getUserInfo();
     }
     if (locationController.addressList.isNotEmpty) {
+      Get.find<LocationController>().getUserAddress();
       _cameraPosition = CameraPosition(
         target: LatLng(
           double.parse(locationController.getAddress['latitude']),
@@ -122,6 +124,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         compassEnabled: false,
                         indoorViewEnabled: true,
                         mapToolbarEnabled: false,
+                        myLocationEnabled: true,
                         onCameraIdle: () {
                           _locationController.updatePosition(_cameraPosition, true);
                         },
@@ -129,8 +132,6 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         onMapCreated: (GoogleMapController controller) {
                           _locationController.setMapController(controller);
                         },
-                        myLocationEnabled: true,
-                        myLocationButtonEnabled: true,
                       ),
                     ],
                   ),
@@ -261,7 +262,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         );
                         _locationController.addAddress(_addressModel).then((response) {
                           if (response.isSuccess) {
-                            Get.back();
+                            Get.offNamed(RouteHelper.getInitial());
                             Get.snackbar('Address', 'Added Successfully!');
                           } else {
                             Get.snackbar('Address', 'Couldn\'t save address');

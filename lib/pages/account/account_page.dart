@@ -97,18 +97,45 @@ class AccountPage extends StatelessWidget {
                                 SizedBox(height: Dimenstions.height20),
 
                                 // address
-                                AccountWidget(
-                                  appIcon: AppIcon(
-                                    icon: Icons.location_on,
-                                    backgroundColor: AppColors.yellowColor,
-                                    iconColor: Colors.white,
-                                    iconSize: Dimenstions.iconSize10 * 5 / 2,
-                                    size: Dimenstions.height10 * 5,
-                                  ),
-                                  bigText: const BigText(
-                                    text: 'Fill in your address',
-                                  ),
-                                ),
+                                GetBuilder<LocationController>(builder: (_locationController) {
+                                  if (_userLoggedIn && _locationController.addressList.isEmpty) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(RouteHelper.getAddAddressPage());
+                                      },
+                                      child: AccountWidget(
+                                        appIcon: AppIcon(
+                                          icon: Icons.location_on,
+                                          backgroundColor: AppColors.yellowColor,
+                                          iconColor: Colors.white,
+                                          iconSize: Dimenstions.iconSize10 * 5 / 2,
+                                          size: Dimenstions.height10 * 5,
+                                        ),
+                                        bigText: const BigText(
+                                          text: 'Fill in your address',
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(RouteHelper.getAddAddressPage());
+                                      },
+                                      child: AccountWidget(
+                                        appIcon: AppIcon(
+                                          icon: Icons.location_on,
+                                          backgroundColor: AppColors.yellowColor,
+                                          iconColor: Colors.white,
+                                          iconSize: Dimenstions.iconSize10 * 5 / 2,
+                                          size: Dimenstions.height10 * 5,
+                                        ),
+                                        bigText: const BigText(
+                                          text: 'Your address',
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                }),
                                 SizedBox(height: Dimenstions.height20),
 
                                 // message
@@ -133,6 +160,7 @@ class AccountPage extends StatelessWidget {
                                       Get.find<AuthController>().clearSharedData();
                                       Get.find<CartController>().clear();
                                       Get.find<CartController>().clearCartHistory();
+                                      Get.find<LocationController>().clearAddressList();
                                       Get.offNamed(RouteHelper.getSignInPage());
                                     } else {
                                       debugPrint('you logged out');

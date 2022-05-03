@@ -111,6 +111,7 @@ class LocationController extends GetxController implements GetxService {
     } else {
       debugPrint('Error getting the google api');
     }
+    update();
     return _address;
   }
 
@@ -167,7 +168,7 @@ class LocationController extends GetxController implements GetxService {
       _addressList = [];
       _allAddressList = [];
       responseBody.forEach((address) {
-        debugPrint('address: $address');
+        // debugPrint('address: $address');
         _addressList.add(AddressModel.fromJson(address));
         _allAddressList.add(AddressModel.fromJson(address));
       });
@@ -181,5 +182,11 @@ class LocationController extends GetxController implements GetxService {
   Future<bool> saveUserAddrss(AddressModel addressModel) async {
     String userAddresss = jsonEncode(addressModel.toJson());
     return await locationRepo.saveUserAddress(userAddresss);
+  }
+
+  void clearAddressList() {
+    _addressList = [];
+    _allAddressList = [];
+    update();
   }
 }
