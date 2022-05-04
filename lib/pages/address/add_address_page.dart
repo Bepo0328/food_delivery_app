@@ -43,6 +43,12 @@ class _AddAddressPageState extends State<AddAddressPage> {
       userContoller.getUserInfo();
     }
     if (locationController.addressList.isNotEmpty) {
+      if (locationController.getUserAddressFromLocalStorage() == '') {
+        locationController.saveUserAddrss(
+          locationController.addressList.last,
+        );
+      }
+
       Get.find<LocationController>().getUserAddress();
       _cameraPosition = CameraPosition(
         target: LatLng(
@@ -131,6 +137,9 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         onCameraMove: ((position) => _cameraPosition = position),
                         onMapCreated: (GoogleMapController controller) {
                           _locationController.setMapController(controller);
+                          if (_locationController.addressList.isEmpty) {
+                            // _locationController.getCurrentLocation(true, mapController: controller);
+                          }
                         },
                       ),
                     ],

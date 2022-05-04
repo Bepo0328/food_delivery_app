@@ -19,8 +19,8 @@ class LocationRepo {
         '?lat=${latlnt.latitude}&lng=${latlnt.longitude}');
   }
 
-  String? getUserAddress() {
-    return sharedPreferences.getString(AppConstants.USER_ADDRESS);
+  String getUserAddress() {
+    return sharedPreferences.getString(AppConstants.USER_ADDRESS) ?? '';
   }
 
   Future<http.Response> addAddress(AddressModel addressModel) async {
