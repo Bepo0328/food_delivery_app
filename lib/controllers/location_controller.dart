@@ -1,5 +1,3 @@
-// ignore_for_file: unused_field
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -120,7 +118,7 @@ class LocationController extends GetxController implements GetxService {
 
   AddressModel getUserAddress() {
     late AddressModel _addressModel;
-    _getAddress = jsonDecode(locationRepo.getUserAddress() ?? '');
+    _getAddress = jsonDecode(locationRepo.getUserAddress());
 
     try {
       _addressModel = AddressModel.fromJson(_getAddress);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controllers/controllers.dart';
 import 'package:food_delivery_app/models/models.dart';
+import 'package:food_delivery_app/pages/pages.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/utils.dart';
 import 'package:food_delivery_app/widgets/widgets.dart';
@@ -126,6 +127,16 @@ class _AddAddressPageState extends State<AddAddressPage> {
                           target: _initialPosition,
                           zoom: 17,
                         ),
+                        onTap: (latlng) {
+                          Get.toNamed(
+                            RouteHelper.getPickAddressMap(),
+                            arguments: PickAddressMap(
+                              fromSignup: false,
+                              fromAddress: true,
+                              googleMapController: _locationController.mapController,
+                            ),
+                          );
+                        },
                         zoomControlsEnabled: false,
                         compassEnabled: false,
                         indoorViewEnabled: true,

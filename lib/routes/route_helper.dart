@@ -8,7 +8,9 @@ class RouteHelper {
   static const String recommendedFood = '/recommended-food';
   static const String cartPage = '/cart-page';
   static const String signIn = '/sign-in';
+
   static const String addAddress = '/add-address';
+  static const String pickAddressMap = '/pick-address';
 
   static String getSplashPage() => splashPage;
   static String getInitial() => initial;
@@ -17,6 +19,7 @@ class RouteHelper {
   static String getCartPage() => cartPage;
   static String getSignInPage() => signIn;
   static String getAddAddressPage() => addAddress;
+  static String getPickAddressMap() => pickAddressMap;
 
   static List<GetPage> routes = [
     GetPage(
@@ -59,6 +62,13 @@ class RouteHelper {
     GetPage(
       name: addAddress,
       page: () => const AddAddressPage(),
+    ),
+    GetPage(
+      name: pickAddressMap,
+      page: () {
+        PickAddressMap _pickAddress = Get.arguments;
+        return _pickAddress;
+      },
     ),
   ];
 }
